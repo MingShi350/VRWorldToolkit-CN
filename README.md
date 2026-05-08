@@ -1,4 +1,6 @@
-# VRWorld Toolkit
+# VRWorld Toolkit（汉化版）
+
+> 📢 本仓库为 [VRWorld Toolkit](https://github.com/oneVR/VRWorldToolkit) 的社区中文汉化分支。原项目由 [oneVR](https://oneVR.dev/) 开发，基于 MIT 许可证发布。
 
 <img src="https://github.com/oneVR/VRWorldToolkit/assets/4764355/0672bef5-0aa4-42b4-b388-1a47bc1ba998">
 
@@ -12,79 +14,79 @@
 
 </div>
 
-**VRWorld Toolkit** is a Unity Editor extension with the purpose of making VRChat world creation more accessible and making it easier to create a good-performing world. The main supported use case is for VRChat world projects, but avatar projects and projects without the VRChat SDK are supported in a limited capacity.
+**VRWorld Toolkit** 是一款 Unity Editor 扩展，旨在降低 VRChat 世界创作的门槛，让创建性能良好的世界变得更加容易。主要支持 VRChat 世界项目，对角色项目和未安装 VRChat SDK 的项目也有有限支持。
 
-To report problems, you can either join my [Discord server](https://discord.com/invite/FCm28DM) or create [a new issue](https://github.com/oneVR/VRWorldToolkit/issues/new/choose). Pull requests are also welcome.
+如需报告问题，你可以加入我的 [Discord 服务器](https://discord.com/invite/FCm28DM) 或创建 [新的 Issue](https://github.com/oneVR/VRWorldToolkit/issues/new/choose)。也欢迎提交 Pull Request。
 
-## Setup
+## 安装
 
-### Requirements
+### 环境要求
 * Unity 2022.3.x
 
-### Getting Started
-* If you are not using VRChat Creator Companion, you can import the Unity Package from the latest release from [here](https://github.com/oneVR/VRWorldToolkit/releases) into your Unity project
-* When using VRChat Creator Companion, you can find the VRWorld Toolkit from the built-in Curated repositories.
-* After importing, you will see the VRWorld Toolkit dropdown appear in the toolbar if not check [Troubleshooting](#troubleshooting)
+### 快速开始
+* 如果你未使用 VRChat Creator Companion，可以从[这里](https://github.com/oneVR/VRWorldToolkit/releases)下载最新版本的 Unity Package 导入到你的 Unity 项目中
+* 如果你使用 VRChat Creator Companion，可以在内置的 Curated 仓库中找到 VRWorld Toolkit
+* 导入后，工具栏中会出现 VRWorld Toolkit 下拉菜单。如果没有出现，请查看[故障排除](#故障排除)
 
-### Troubleshooting
-> [!IMPORTANT]  
-> First, if you are working on a VRChat project, make sure you are running the latest SDK version if not [update](https://creators.vrchat.com/sdk/updating-the-sdk/). This project is kept up to date, supporting the latest SDK versions. Support for older versions is not guaranteed.
+### 故障排除
+> [!IMPORTANT]
+> 首先，如果你正在开发 VRChat 项目，请确保运行的是最新版 SDK，如不是请[更新](https://creators.vrchat.com/sdk/updating-the-sdk/)。本项目保持与最新 SDK 版本的同步更新，不保证对旧版本的支持。
 
-Start by opening the Unity Console either by using `Ctrl + Shift + C` or from `Window > General > Console`. Afterward, make sure red errors are enabled from the top right corner of the window. Finally, press `Clear` in the top left corner, which will narrow the view down to only compilation-stopping errors.
+首先打开 Unity Console，可以通过 `Ctrl + Shift + C` 或 `Window > General > Console` 打开。然后确保窗口右上角的红色错误已启用。最后点击左上角的 `Clear`，这样只会显示导致编译失败的错误。
 
-If the errors that are left mention Post Processing or Bakery when the project *does not* currently have these, see the following paragraphs.
+如果剩余的错误提到了 Post Processing 或 Bakery，但你的项目*并没有*安装它们，请参考以下说明。
 
-The most common issue is when the project previously had `Post Processing` or `Bakery` but has since been removed. This will leave behind a Scripting Define Symbol that the assets automatically add, making VRWorld Toolkit think they still exist in the project.
+最常见的问题是项目之前安装了 `Post Processing` 或 `Bakery` 但后来被移除。这会在项目中留下这些资源自动添加的 Scripting Define Symbol，导致 VRWorld Toolkit 认为它们仍然存在于项目中。
 
-This can be manually removed from `Edit > Project Settings > Player > Other Settings > Scripting Define Symbols`
+可以手动从 `Edit > Project Settings > Player > Other Settings > Scripting Define Symbols` 中移除：
 
-* For Bakery: `BAKERY_INCLUDED`
-* For Post Processing: `UNITY_POST_PROCESSING_STACK_V2`
+* 对应 Bakery：`BAKERY_INCLUDED`
+* 对应 Post Processing：`UNITY_POST_PROCESSING_STACK_V2`
 
-These symbols' primary function is to load parts of code only when they are set in the project. However, they do not automatically get removed with the asset that added them to your project.
+这些符号的主要作用是在项目中设置它们时才加载相应部分的代码，但它们不会随添加它们的资源一起被自动移除。
 
-A rare issue can also be caused by having a `Bloom.cs` script or just `Bloom` class in the global namespace in your project conflicting with Post Processing. This can usually be seen in the console by having repeated errors for Post Processing bloom not being able to be accessed from VRWorld Toolkit scripts. The easiest solution is finding and removing the offending script often found just by searching for `Bloom` in your assets.
+还有一种罕见情况：如果你的项目全局命名空间中存在 `Bloom.cs` 脚本或名为 `Bloom` 的类，会与 Post Processing 产生冲突。通常表现为控制台中反复出现 VRWorld Toolkit 脚本无法访问 Post Processing Bloom 的错误。最简单的解决方法是找到并删除有问题的脚本，通常在资源中搜索 `Bloom` 就能找到。
 
-## Main features
+## 主要功能
 
 <img align="right" width="400" margin="20" src="https://github.com/oneVR/VRWorldToolkit/assets/4764355/52c0c25c-c3e9-4b73-8e88-b4e10c884040">
 
-### World Debugger
-Goes through the scene, checks for common issues, and makes suggestions on what to improve. Includes over 90 different tips, warnings, errors, and general messages!
+### 世界调试器 (World Debugger)
+遍历场景，检查常见问题，并给出改进建议。包含超过 90 条不同的提示、警告、错误和常规消息！
 
-It also allows viewing the stats of the latest builds SDK has done for an easily accessible overview of what the build consists of. It also saves the latest Windows and Android builds separately for easy comparison between the two.
+它还允许查看 SDK 最近构建的统计数据，方便快速了解构建内容的概况。同时会分别保存最新的 Windows 和 Android 构建数据，便于两者对比。
 
-### Disable On Build
-After the setup is run from `VRWorld Toolkit > Disable On Build > Setup` a new tag is added `DisableOnBuild` that automatically disables all GameObjects marked with it before a build happens. The most significant use case for this is easier to manage trigger-based occlusion.
+### 构建时禁用 (Disable On Build)
+通过 `VRWorld Toolkit > 构建时功能 > 构建时禁用 > 设置` 运行设置后，会添加一个新标签 `DisableOnBuild`。所有标记了此标签的游戏对象将在构建前被自动禁用。最典型的用例是更方便地管理基于触发器的遮挡剔除。
 
-### Post Processing
-Offers a one-click solution to having a working Post Processing setup with a simple example profile for further editing.
+### 后期处理 (Post Processing)
+提供一键配置后期处理的方案，附带一个简单的示例配置文件供进一步编辑。
 
-### Quick Functions
+### 快捷功能 (Quick Functions)
 
-#### Copy World ID
-Helps you to quickly copy the current scene's world ID to the clipboard without having to fumble trying to find the Scene Descriptor.
+#### 复制世界 ID
+帮你快速将当前场景的世界 ID 复制到剪贴板，省去翻找 Scene Descriptor 的麻烦。
 
-#### Mass Texture Importer
-Batch processes textures to quickly apply crunch compression and other settings to all textures in the current scene or all assets in the project.
+#### 批量纹理导入器 (Mass Texture Importer)
+批量处理纹理，快速将 Crunch 压缩和其他设置应用到当前场景中的所有纹理或项目中的所有资源。
 
-### Custom Editors
-Adds more features to the pre-existing VRChat components to make them easier to use and provide quality-of-life improvements. If not needed, they can also be easily disabled from `VRWorld Toolkit > Custom Editor > Disable`.
+### 自定义编辑器 (Custom Editors)
+为现有的 VRChat 组件添加更多功能，使其更易用并提供体验优化。如果不需要，也可以通过 `VRWorld Toolkit > 自定义编辑器 > 禁用` 轻松关闭。
 
-Includes additions to:
+增强内容包括：
 
-* VRC Mirror Reflection
-  * Quick-set layers to commonly used setups
-  * Warnings and messages for common problems people run into with mirrors
-  * Explanations for VRChat-specific layers
-* VRC Avatar Pedestal
-  * Adds a feature to mass copy and set IDs to pedestals while having multiple selected
-  * Draws outlines of where the pedestal image will appear in-game when you select the GameObject with the pedestal component on it
+* VRC 镜子反射
+ * 一键设置常用反射层
+ * 针对镜子常见问题的警告和提示
+ * VRChat 专属层的说明
+* VRC 角色展台
+ * 支持多选时批量复制和设置展台 ID
+ * 选中带展台组件的游戏对象时，会在场景中绘制展台图片在实际游戏中的显示区域轮廓
 
-## Special Thanks to
+## 特别感谢
 
-* [Pumkin](https://github.com/rurre/PumkinsAvatarTools) - For helping me a lot to get started and creating the original Disable On Upload feature that got me started on this project
-* [Silent](http://s-ilent.gitlab.io/index.html) - For making my texts more clear and for help with Post Processing features
-* [Metamaniac (Table)](https://twitter.com/Metamensa) - Checked through my texts and found all the stupid typos I made
+* [Pumkin](https://github.com/rurre/PumkinsAvatarTools) - 在项目初期给了我大量帮助，他创作的 Disable On Upload 功能是这个项目的起点
+* [Silent](http://s-ilent.gitlab.io/index.html) - 帮我润色文字表达，并在后期处理功能上提供帮助
+* [Metamaniac (Table)](https://twitter.com/Metamensa) - 逐字检查了我的文字，揪出了所有愚蠢的拼写错误
 
-**Disclaimer:** This extension is still a work in progress. Even though I try to test it thoroughly, things can break. *Remember to make backups of your projects and use this at your own risk!*
+**免责声明：** 此扩展仍在持续开发中。尽管我尽力进行全面测试，但仍可能出现问题。*请务必做好项目备份，使用风险自负！*
