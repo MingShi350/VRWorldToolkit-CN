@@ -19,7 +19,7 @@ namespace VRWorldToolkit.Editor
     public class QuickFunctions : EditorWindow
     {
 #if VRWT_IS_VRC
-        [MenuItem("VRWorld Toolkit/Quick Functions/Copy World ID", false, 4)]
+        [MenuItem("VRWorld Toolkit/快捷功能/复制世界 ID", false, 4)]
         public static void CopyWorldID()
         {
             var descriptors = FindObjectsOfType(typeof(VRC_SceneDescriptor)) as VRC_SceneDescriptor[];
@@ -32,7 +32,7 @@ namespace VRWorldToolkit.Editor
             }
         }
 
-        [MenuItem("VRWorld Toolkit/Quick Functions/Copy World ID", true)]
+        [MenuItem("VRWorld Toolkit/快捷功能/复制世界 ID", true)]
         private static bool CopyWorldIDValidate()
         {
             var descriptors = FindObjectsOfType(typeof(VRC_SceneDescriptor)) as VRC_SceneDescriptor[];
@@ -47,7 +47,7 @@ namespace VRWorldToolkit.Editor
             return false;
         }
         
-        [MenuItem("VRWorld Toolkit/Quick Functions/Open VRChat Worlds Build Folder", false, 5)]
+        [MenuItem("VRWorld Toolkit/快捷功能/打开 VRChat Worlds 构建文件夹", false, 5)]
         public static void OpenBuildFolder()
         {
 #if UNITY_EDITOR_WIN
@@ -59,14 +59,14 @@ namespace VRWorldToolkit.Editor
             }
             else
             {
-                EditorUtility.DisplayDialog("Folder Not Found", "The VRChat worlds build folder does not exist. It's possible you haven't made a build using the VRChat SDK yet.", "Ok");
+                EditorUtility.DisplayDialog("找不到文件夹", "VRChat Worlds 构建文件夹不存在。你可能还没有使用 VRChat SDK 进行过构建。", "确定");
             }
 #else
-            EditorUtility.DisplayDialog("Info", "This function is only supported while using the Unity Editor on Windows at this time. No action was taken.", "Ok");
+            EditorUtility.DisplayDialog("提示", "此功能目前仅支持在 Windows 上的 Unity Editor 中使用。未执行任何操作。", "确定");
 #endif
         }
 
-        [MenuItem("VRWorld Toolkit/Quick Functions/Setup Layers and Collision Matrix", false, 6)]
+        [MenuItem("VRWorld Toolkit/快捷功能/设置层与碰撞矩阵", false, 6)]
         public static void SetupLayersCollisionMatrix()
         {
             if (!UpdateLayers.AreLayersSetup()) UpdateLayers.SetupEditorLayers();
@@ -74,17 +74,17 @@ namespace VRWorldToolkit.Editor
             if (!UpdateLayers.IsCollisionLayerMatrixSetup()) UpdateLayers.SetupCollisionLayerMatrix();
         }
 
-        [MenuItem("VRWorld Toolkit/Quick Functions/Setup Layers and Collision Matrix", true)]
+        [MenuItem("VRWorld Toolkit/快捷功能/设置层与碰撞矩阵", true)]
         private static bool SetupLayersCollisionMatrixValidate()
         {
             return !UpdateLayers.AreLayersSetup() || !UpdateLayers.IsCollisionLayerMatrixSetup();
         }
 #endif
 
-        [MenuItem("VRWorld Toolkit/Quick Functions/Remove Missing Scripts from Scene", false, 7)]
+        [MenuItem("VRWorld Toolkit/快捷功能/从场景中移除丢失的脚本", false, 7)]
         private static void FindAndRemoveMissingScripts()
         {
-            if (EditorUtility.DisplayDialog("Remove Missing Scripts", "Running this will go through all GameObjects in the open scene and remove any components with missing scripts. This action can't be reversed!\n\nAre you sure you want to continue?", "Continue", "Cancel"))
+            if (EditorUtility.DisplayDialog("移除丢失的脚本", "运行此操作将遍历当前打开场景中的所有游戏对象，并移除所有包含丢失脚本的组件。此操作不可撤销！\n\n确定要继续吗？", "继续", "取消"))
             {
                 var overallRemovedCount = 0;
                 var allGameObjects = Resources.FindObjectsOfTypeAll(typeof(GameObject));
@@ -95,7 +95,7 @@ namespace VRWorldToolkit.Editor
 
                     if (gameObject != null && (gameObject.hideFlags != HideFlags.None || EditorUtility.IsPersistent(gameObject.transform.root.gameObject))) continue;
 
-                    if (EditorUtility.DisplayCancelableProgressBar("Checking For Missing Scripts", gameObject.name, (float) i / allGameObjectsLength)) break;
+                    if (EditorUtility.DisplayCancelableProgressBar("正在检查丢失的脚本", gameObject.name, (float) i / allGameObjectsLength)) break;
 
                     var removedCount = GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(gameObject);
                     if (removedCount > 0)
@@ -108,8 +108,8 @@ namespace VRWorldToolkit.Editor
 
                 EditorUtility.ClearProgressBar();
                 EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
-                var message = overallRemovedCount > 0 ? $"Removed total of {overallRemovedCount} components with missing scripts." : "No components with missing scripts were found.";
-                EditorUtility.DisplayDialog("Remove Missing Scripts", message, "Ok");
+                var message = overallRemovedCount > 0 ? $"共移除了 {overallRemovedCount} 个包含丢失脚本的组件。" : "未发现包含丢失脚本的组件。";
+                EditorUtility.DisplayDialog("移除丢失的脚本", message, "确定");
             }
         }
     }

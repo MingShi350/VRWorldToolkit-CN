@@ -478,7 +478,7 @@ namespace VRWorldToolkit.Editor
                         {
                             using (new EditorGUILayout.HorizontalScope())
                             {
-                                DrawMessage("No messages found for " + group.listName + ".", MessageType.Info);
+                                DrawMessage("未找到 " + group.listName + " 的消息。", MessageType.Info);
                             }
 
                             continue;
@@ -530,7 +530,7 @@ namespace VRWorldToolkit.Editor
 
                             if (messageGroup.MessageList.Count > 1)
                             {
-                                expanded = EditorGUILayout.Foldout(expanded, "Show separate messages");
+                                expanded = EditorGUILayout.Foldout(expanded, "显示单独消息");
                                 group.SetExpanded(messageGroup, expanded);
 
                                 if (!expanded) continue;
@@ -576,7 +576,7 @@ namespace VRWorldToolkit.Editor
                         var autoFixSet = autoFix != null;
                         var assetPathSet = assetPath != null;
 
-                        if (infoLinkSet && GUILayout.Button("More Info", GUILayout.Width(ButtonWidth), GUILayout.Height(ButtonHeight)))
+                        if (infoLinkSet && GUILayout.Button("更多信息", GUILayout.Width(ButtonWidth), GUILayout.Height(ButtonHeight)))
                         {
                             Application.OpenURL(infoLink);
                         }
@@ -587,14 +587,14 @@ namespace VRWorldToolkit.Editor
                             {
                                 if (assetPathSet)
                                 {
-                                    if (GUILayout.Button("Ping Asset", GUILayout.Width(ButtonWidth), GUILayout.Height(ButtonHeight)))
+                                    if (GUILayout.Button("定位资源", GUILayout.Width(ButtonWidth), GUILayout.Height(ButtonHeight)))
                                     {
                                         EditorGUIUtility.PingObject(AssetDatabase.LoadAssetAtPath<Object>(assetPath));
                                     }
                                 }
                                 else
                                 {
-                                    if (GUILayout.Button("Select", GUILayout.Width(ButtonWidth), GUILayout.Height(ButtonHeight)))
+                                    if (GUILayout.Button("选中", GUILayout.Width(ButtonWidth), GUILayout.Height(ButtonHeight)))
                                     {
                                         if (selectObjects != null)
                                         {
@@ -609,7 +609,7 @@ namespace VRWorldToolkit.Editor
                         {
                             using (new EditorGUI.DisabledScope(!autoFixSet))
                             {
-                                if (GUILayout.Button("Auto Fix", GUILayout.Width(ButtonWidth), GUILayout.Height(ButtonHeight)))
+                                if (GUILayout.Button("自动修复", GUILayout.Width(ButtonWidth), GUILayout.Height(ButtonHeight)))
                                 {
                                     autoFix?.Invoke();
 
@@ -627,11 +627,11 @@ namespace VRWorldToolkit.Editor
 
         [SerializeField] private int tab;
 
-        [MenuItem("VRWorld Toolkit/World Debugger", false, 25)]
+        [MenuItem("VRWorld Toolkit/世界调试器", false, 25)]
         public static void ShowWindow()
         {
             var window = GetWindow(typeof(WorldDebugger));
-            window.titleContent = new GUIContent("World Debugger");
+            window.titleContent = new GUIContent("世界调试器");
             window.minSize = new Vector2(520, 600);
             window.Show();
         }
@@ -647,7 +647,7 @@ namespace VRWorldToolkit.Editor
         {
             return () =>
             {
-                if (EditorUtility.DisplayDialog("Enable lightmap UV generation?", "This operation will enable the lightmap UV generation on the mesh \"" + Path.GetFileName(AssetDatabase.GetAssetPath(importer)) + "\".\n\nDo you want to continue?", "Yes", "Cancel"))
+                if (EditorUtility.DisplayDialog("启用光照贴图 UV 生成？", "此操作将在网格 \"" + Path.GetFileName(AssetDatabase.GetAssetPath(importer)) + "\" 上启用光照贴图 UV 生成。\n\n是否继续？", "是", "取消"))
                 {
                     importer.generateSecondaryUV = true;
                     importer.SaveAndReimport();
@@ -659,7 +659,7 @@ namespace VRWorldToolkit.Editor
         {
             return () =>
             {
-                if (EditorUtility.DisplayDialog("Enable lightmap UV generation?", "This operation will enable the lightmap UV generation on " + importers.Count + " meshes.\n\nDo you want to continue?", "Yes", "Cancel"))
+                if (EditorUtility.DisplayDialog("启用光照贴图 UV 生成？", "此操作将在 " + importers.Count + " 个网格上启用光照贴图 UV 生成。\n\n是否继续？", "是", "取消"))
                 {
                     importers.ForEach(i =>
                     {
@@ -690,7 +690,7 @@ namespace VRWorldToolkit.Editor
         {
             return () =>
             {
-                if (EditorUtility.DisplayDialog("Enable Legacy Blend Shape Normals?", "This operation will enable Legacy Blend Shape Normals on the model \"" + Path.GetFileName(AssetDatabase.GetAssetPath(importer)) + "\".\n\nDo you want to continue?", "Yes", "Cancel"))
+                if (EditorUtility.DisplayDialog("启用 Legacy Blend Shape Normals？", "此操作将在模型 \"" + Path.GetFileName(AssetDatabase.GetAssetPath(importer)) + "\" 上启用 Legacy Blend Shape Normals。\n\n是否继续？", "是", "取消"))
                 {
                     ModelImporterUtil.SetLegacyBlendShapeNormals(importer, true);
                     importer.SaveAndReimport();
@@ -702,7 +702,7 @@ namespace VRWorldToolkit.Editor
         {
             return () =>
             {
-                if (EditorUtility.DisplayDialog("Enable Legacy Blend Shape Normals?", "This operation will enable Legacy Blend Shape Normals on " + importers.Length + " models. This can take some time, depending on the number of models and their size.\n\nDo you want to continue?", "Yes", "Cancel"))
+                if (EditorUtility.DisplayDialog("启用 Legacy Blend Shape Normals？", "此操作将在 " + importers.Length + " 个模型上启用 Legacy Blend Shape Normals。根据模型数量和大小，这可能需要一些时间。\n\n是否继续？", "是", "取消"))
                 {
                     for (var i = 0; i < importers.Length; i++)
                     {
@@ -717,7 +717,7 @@ namespace VRWorldToolkit.Editor
         {
             return () =>
             {
-                if (EditorUtility.DisplayDialog("Disable component?", "This operation will disable the " + behaviour.GetType() + " on the GameObject \"" + behaviour.gameObject.name + "\".\n\nDo you want to continue?", "Yes", "Cancel"))
+                if (EditorUtility.DisplayDialog("禁用组件？", "此操作将禁用游戏对象 \"" + behaviour.gameObject.name + "\" 上的 " + behaviour.GetType() + " 组件。\n\n是否继续？", "是", "取消"))
                 {
                     Undo.RegisterCompleteObjectUndo(behaviour, "Disable Component");
                     behaviour.enabled = false;
@@ -730,7 +730,7 @@ namespace VRWorldToolkit.Editor
         {
             return () =>
             {
-                if (EditorUtility.DisplayDialog("Disable component?", "This operation will disable the " + behaviours[0].GetType() + " component on " + behaviours.Count().ToString() + " GameObjects.\n\nDo you want to continue?", "Yes", "Cancel"))
+                if (EditorUtility.DisplayDialog("禁用组件？", "此操作将禁用 " + behaviours.Count().ToString() + " 个游戏对象上的 " + behaviours[0].GetType() + " 组件。\n\n是否继续？", "是", "取消"))
                 {
                     Undo.RegisterCompleteObjectUndo(behaviours.ToArray<Object>(), "Mass Disable Components");
 
@@ -748,7 +748,7 @@ namespace VRWorldToolkit.Editor
         {
             return () =>
             {
-                if (EditorUtility.DisplayDialog("Change layer?", "This operation will change the layer of " + obj.name + " to " + layer + ".\n\nDo you want to continue?", "Yes", "Cancel"))
+                if (EditorUtility.DisplayDialog("更改层？", "此操作将把 " + obj.name + " 的层更改为 " + layer + "。\n\n是否继续？", "是", "取消"))
                 {
                     Undo.RegisterCompleteObjectUndo(obj, "Layer Change");
                     obj.layer = LayerMask.NameToLayer(layer);
@@ -761,7 +761,7 @@ namespace VRWorldToolkit.Editor
         {
             return () =>
             {
-                if (EditorUtility.DisplayDialog("Change layer?", "This operation will change " + objs.Length + " GameObjects layer to " + layer + ".\n\nDo you want to continue?", "Yes", "Cancel"))
+                if (EditorUtility.DisplayDialog("更改层？", "此操作将把 " + objs.Length + " 个游戏对象的层更改为 " + layer + "。\n\n是否继续？", "是", "取消"))
                 {
                     Undo.RegisterCompleteObjectUndo(objs.ToArray<Object>(), "Mass Layer Change");
 
@@ -779,7 +779,7 @@ namespace VRWorldToolkit.Editor
         {
             return () =>
             {
-                if (EditorUtility.DisplayDialog("Change Navigation mode?", "This operation will change the Navigation mode on UI Element \"" + selectable.gameObject.name + "\" to " + mode.ToString() + ".\n\nDo you want to continue?", "Yes", "Cancel"))
+                if (EditorUtility.DisplayDialog("更改导航模式？", "此操作将把 UI 元素 \"" + selectable.gameObject.name + "\" 的导航模式更改为 " + mode.ToString() + "。\n\n是否继续？", "是", "取消"))
                 {
                     Undo.RegisterCompleteObjectUndo(selectable, "Navigation Mode Change");
 
@@ -798,7 +798,7 @@ namespace VRWorldToolkit.Editor
         {
             return () =>
             {
-                if (EditorUtility.DisplayDialog("Change Navigation mode?", "This operation will change " + selectables.Length + " UI Elements Navigation to " + mode.ToString() + ".\n\nDo you want to continue?", "Yes", "Cancel"))
+                if (EditorUtility.DisplayDialog("更改导航模式？", "此操作将把 " + selectables.Length + " 个 UI 元素的导航模式更改为 " + mode.ToString() + "。\n\n是否继续？", "是", "取消"))
                 {
                     Undo.RegisterCompleteObjectUndo(selectables.ToArray<Object>(), "Mass Navigation Mode Change");
 
@@ -820,7 +820,7 @@ namespace VRWorldToolkit.Editor
         {
             return () =>
             {
-                if (EditorUtility.DisplayDialog("Change Scroll Sensitivity?", "This operation will change the Scroll Sensitivity on ScrollRect component \"" + scrollRect.gameObject.name + "\" to " + scrollSensitivity + ".\n\nDo you want to continue?", "Yes", "Cancel"))
+                if (EditorUtility.DisplayDialog("更改滚动灵敏度？", "此操作将把 ScrollRect 组件 \"" + scrollRect.gameObject.name + "\" 的滚动灵敏度更改为 " + scrollSensitivity + "。\n\n是否继续？", "是", "取消"))
                 {
                     Undo.RegisterCompleteObjectUndo(scrollRect, "ScrollRect Scroll Sensitivity Change");
 
@@ -835,7 +835,7 @@ namespace VRWorldToolkit.Editor
         {
             return () =>
             {
-                if (EditorUtility.DisplayDialog("Change Scroll Sensitivity?", "This operation will change " + scrollRects.Length + " ScrollRect components Scroll Sensitivity to " + scrollSensitivity + ".\n\nDo you want to continue?", "Yes", "Cancel"))
+                if (EditorUtility.DisplayDialog("更改滚动灵敏度？", "此操作将把 " + scrollRects.Length + " 个 ScrollRect 组件的滚动灵敏度更改为 " + scrollSensitivity + "。\n\n是否继续？", "是", "取消"))
                 {
                     Undo.RegisterCompleteObjectUndo(scrollRects.ToArray<Object>(), "Mass ScrollRect Scroll Sensitivity Change");
 
@@ -855,7 +855,7 @@ namespace VRWorldToolkit.Editor
         {
             return () =>
             {
-                if (EditorUtility.DisplayDialog("Change Particle System Allow Roll?", "This operation will change the Allow Roll on Particle System \"" + particleSystemRenderer.gameObject.name + "\" to " + allowRoll + ".\n\nDo you want to continue?", "Yes", "Cancel"))
+                if (EditorUtility.DisplayDialog("更改粒子系统 Allow Roll？", "此操作将把粒子系统 \"" + particleSystemRenderer.gameObject.name + "\" 的 Allow Roll 更改为 " + allowRoll + "。\n\n是否继续？", "是", "取消"))
                 {
                     Undo.RegisterCompleteObjectUndo(particleSystemRenderer, "Particle System Allow Roll Change");
 
@@ -870,7 +870,7 @@ namespace VRWorldToolkit.Editor
         {
             return () =>
             {
-                if (EditorUtility.DisplayDialog("Change Particle System Allow Roll?", "This operation will change " + particleSystemRenderers.Length + " Particle Systems Allow Roll to " + allowRoll + ".\n\nDo you want to continue?", "Yes", "Cancel"))
+                if (EditorUtility.DisplayDialog("更改粒子系统 Allow Roll？", "此操作将把 " + particleSystemRenderers.Length + " 个粒子系统的 Allow Roll 更改为 " + allowRoll + "。\n\n是否继续？", "是", "取消"))
                 {
                     Undo.RegisterCompleteObjectUndo(particleSystemRenderers.ToArray<Object>(), "Mass Particle System Allow Roll Change");
 
@@ -890,7 +890,7 @@ namespace VRWorldToolkit.Editor
         {
             return () =>
             {
-                if (EditorUtility.DisplayDialog("Change lightmap size?", "This operation will change your lightmap size from " + Lightmapping.lightingSettings.lightmapMaxSize + " to " + newSize + ".\n\nDo you want to continue?", "Yes", "Cancel"))
+                if (EditorUtility.DisplayDialog("更改光照贴图尺寸？", "此操作将把光照贴图尺寸从 " + Lightmapping.lightingSettings.lightmapMaxSize + " 更改为 " + newSize + "。\n\n是否继续？", "是", "取消"))
                 {
                     Lightmapping.lightingSettings.lightmapMaxSize = newSize;
                 }
@@ -901,7 +901,7 @@ namespace VRWorldToolkit.Editor
         {
             return () =>
             {
-                if (EditorUtility.DisplayDialog("Set lightmap compression override?", "This operation will set the platform-specific overrides for all lightmaps (" + textureImporters.Length + ") to ATCS 4x4 block format on Android.\n\nWarning this can take a while depending on lightmap size and how many there are.\n\nDo you want to continue?", "Yes", "Cancel"))
+                if (EditorUtility.DisplayDialog("设置光照贴图压缩覆盖？", "此操作将为所有光照贴图（" + textureImporters.Length + " 个）设置 Android 平台的 ASTC 4x4 块格式覆盖。\n\n警告：根据光照贴图的大小和数量，这可能需要一些时间。\n\n是否继续？", "是", "取消"))
                 {
                     foreach (var item in textureImporters)
                     {
@@ -923,7 +923,7 @@ namespace VRWorldToolkit.Editor
         {
             return () =>
             {
-                if (EditorUtility.DisplayDialog("Set lightmap compression override?", "This operation will set the platform-specific overrides for \"" + lightmapName + "\" to ATCS 4x4 block format on Android.\n\nWarning this can take a while depending on lightmap size.\n\nDo you want to continue?", "Yes", "Cancel"))
+                if (EditorUtility.DisplayDialog("设置光照贴图压缩覆盖？", "此操作将为 \"" + lightmapName + "\" 设置 Android 平台的 ASTC 4x4 块格式覆盖。\n\n警告：根据光照贴图的大小，这可能需要一些时间。\n\n是否继续？", "是", "取消"))
                 {
                     var settings = textureImporter.GetPlatformTextureSettings("Android");
 
@@ -952,7 +952,7 @@ namespace VRWorldToolkit.Editor
         {
             return () =>
             {
-                if (EditorUtility.DisplayDialog("Change tag?", "This operation will change the tag of " + obj.name + " to " + tag + ".\n\nDo you want to continue?", "Yes", "Cancel"))
+                if (EditorUtility.DisplayDialog("更改标签？", "此操作将把 " + obj.name + " 的标签更改为 " + tag + "。\n\n是否继续？", "是", "取消"))
                 {
                     Undo.RegisterCompleteObjectUndo(obj, "Change Tag");
                     obj.tag = tag;
@@ -965,7 +965,7 @@ namespace VRWorldToolkit.Editor
         {
             return () =>
             {
-                if (EditorUtility.DisplayDialog("Change tag?", "This operation will change " + objs.Length + " GameObjects tag to " + tag + ".\n\nDo you want to continue?", "Yes", "Cancel"))
+                if (EditorUtility.DisplayDialog("更改标签？", "此操作将把 " + objs.Length + " 个游戏对象的标签更改为 " + tag + "。\n\n是否继续？", "是", "取消"))
                 {
                     Undo.RegisterCompleteObjectUndo(objs.ToArray<Object>(), "Mass Change Tag");
 
@@ -983,7 +983,7 @@ namespace VRWorldToolkit.Editor
         {
             return () =>
             {
-                if (EditorUtility.DisplayDialog("Change shader?", "This operation will change the shader of the material " + material.name + " to " + shader + ".\n\nDo you want to continue?", "Yes", "Cancel"))
+                if (EditorUtility.DisplayDialog("更改着色器？", "此操作将把材质 " + material.name + " 的着色器更改为 " + shader + "。\n\n是否继续？", "是", "取消"))
                 {
                     var standard = Shader.Find(shader);
                     Undo.RegisterCompleteObjectUndo(material, "Changed Shader");
@@ -996,7 +996,7 @@ namespace VRWorldToolkit.Editor
         {
             return () =>
             {
-                if (EditorUtility.DisplayDialog("Change shader?", "This operation will change the shader of " + materials.Length + " materials to " + shader + ".\n\nDo you want to continue?", "Yes", "Cancel"))
+                if (EditorUtility.DisplayDialog("更改着色器？", "此操作将把 " + materials.Length + " 个材质的着色器更改为 " + shader + "。\n\n是否继续？", "是", "取消"))
                 {
                     var newShader = Shader.Find(shader);
                     Undo.RegisterCompleteObjectUndo(materials.ToArray<Object>(), "Changed Shaders");
@@ -1010,7 +1010,7 @@ namespace VRWorldToolkit.Editor
             return () =>
             {
                 Undo.RegisterCompleteObjectUndo(lightProbeGroup, "Removed Overlapping Light Probes");
-                if (EditorUtility.DisplayDialog("Remove overlapping light probes?", "This operation will remove any overlapping light probes in the group \"" + lightProbeGroup.gameObject.name + "\".\n\nDo you want to continue?", "Yes", "Cancel"))
+                if (EditorUtility.DisplayDialog("移除重叠的光照探针？", "此操作将移除光照探针组 \"" + lightProbeGroup.gameObject.name + "\" 中的所有重叠光照探针。\n\n是否继续？", "是", "取消"))
                 {
                     lightProbeGroup.probePositions = lightProbeGroup.probePositions.Distinct().ToArray();
                     PrefabUtility.RecordPrefabInstancePropertyModifications(lightProbeGroup);
@@ -1023,7 +1023,7 @@ namespace VRWorldToolkit.Editor
             return () =>
             {
                 Undo.RegisterCompleteObjectUndo(lightProbeGroups, "Removed Overlapping Light Probes");
-                if (EditorUtility.DisplayDialog("Remove overlapping light probes?", "This operation will remove any overlapping light probes found in the current scene.\n\nDo you want to continue?", "Yes", "Cancel"))
+                if (EditorUtility.DisplayDialog("移除重叠的光照探针？", "此操作将移除当前场景中发现的所有重叠光照探针。\n\n是否继续？", "是", "取消"))
                 {
                     foreach (var lpg in lightProbeGroups)
                     {
@@ -1041,7 +1041,7 @@ namespace VRWorldToolkit.Editor
                 if (LightmapSettings.lightProbes != null)
                 {
                     var probes = LightmapSettings.lightProbes.positions;
-                    if (EditorUtility.DisplayDialog("Remove redundant light probes?", "This operation will attempt to remove any redundant light probes in the current scene. Bake your lighting before this operation to avoid any correct light probes getting removed.\n\nDo you want to continue?", "Yes", "Cancel"))
+                    if (EditorUtility.DisplayDialog("移除冗余的光照探针？", "此操作将尝试移除当前场景中的所有冗余光照探针。在执行此操作前请先烘焙光照，以避免误删正确的光照探针。\n\n是否继续？", "是", "取消"))
                     {
                         foreach (var lpg in lightProbeGroups)
                         {
@@ -1051,7 +1051,7 @@ namespace VRWorldToolkit.Editor
                 }
                 else
                 {
-                    EditorUtility.DisplayDialog("Baked light probes not found!", "Bake your lighting first before attempting to remove redundant light probes.", "Ok");
+                    EditorUtility.DisplayDialog("未找到已烘焙的光照探针！", "请先烘焙光照，然后再尝试移除冗余的光照探针。", "确定");
                 }
             };
         }
@@ -1060,7 +1060,7 @@ namespace VRWorldToolkit.Editor
         {
             return async () =>
             {
-                if (EditorUtility.DisplayDialog("Clear Occlusion Cache?", "This will clear your occlusion culling cache. Which has " + fileCount + " files currently. Deleting a massive amount of files can take a while.\n\nDo you want to continue?", "Yes", "Cancel"))
+                if (EditorUtility.DisplayDialog("清除遮挡剔除缓存？", "这将清除你的遮挡剔除缓存，当前有 " + fileCount + " 个文件。删除大量文件可能需要一些时间。\n\n是否继续？", "是", "取消"))
                 {
                     long deleteCount = 0;
 
@@ -1069,7 +1069,7 @@ namespace VRWorldToolkit.Editor
                     var deleteFiles = new Progress<string>(fileName =>
                     {
                         deleteCount++;
-                        if (EditorUtility.DisplayCancelableProgressBar("Clearing Occlusion Cache", fileName, (float)deleteCount / fileCount))
+                        if (EditorUtility.DisplayCancelableProgressBar("正在清除遮挡剔除缓存", fileName, (float)deleteCount / fileCount))
                         {
                             tokenSource.Cancel();
                         }
@@ -1081,7 +1081,7 @@ namespace VRWorldToolkit.Editor
                     EditorUtility.ClearProgressBar();
 
                     occlusionCacheFiles = 0;
-                    EditorUtility.DisplayDialog("Files Deleted", "Deleted " + deleteCount + " files.", "Ok");
+                    EditorUtility.DisplayDialog("文件已删除", "已删除 " + deleteCount + " 个文件。", "确定");
                 }
             };
         }
@@ -1139,7 +1139,7 @@ namespace VRWorldToolkit.Editor
                 EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
             };
         }
-        
+
         public static Action SetErrorPause(bool enabled)
         {
             return () => { ConsoleFlagUtil.SetConsoleErrorPause(enabled); };
@@ -1210,244 +1210,244 @@ namespace VRWorldToolkit.Editor
 
         #region Texts
 
-        private const string NoSceneDescriptor = "The current scene has no Scene Descriptor. Please add one, or drag the VRCWorld prefab to the scene.";
+        private const string NoSceneDescriptor = "当前场景没有场景描述符(Scene Descriptor)。请添加一个,或将 VRCWorld 预制体拖入场景中。";
 
-        private const string TooManySceneDescriptors = "Multiple Scene Descriptors were found. Only one scene descriptor can exist in a single scene.";
+        private const string TooManySceneDescriptors = "发现多个场景描述符。一个场景中只能存在一个场景描述符。";
 
-        private const string TooManyPipelineManagers = "The current scene has multiple Pipeline Managers in it. This can break the world upload process and prevent you from being able to load into the world.";
+        private const string TooManyPipelineManagers = "当前场景中存在多个管线管理器(Pipeline Manager)。这会破坏世界上传流程,可能导致你无法加载进入世界。";
 
-        private const string WorldDescriptorFar = "Scene Descriptor is {0} units far from the zero point in Unity. Having your world center out this far will cause some noticeable jittering on models. You should move your world closer to the zero point of your scene.";
+        private const string WorldDescriptorFar = "场景描述符距离 Unity 原点 {0} 个单位。世界中心离原点这么远会导致模型出现明显的抖动。建议将你的世界移近场景原点。";
 
-        private const string WorldDescriptorOff = "Scene Descriptor is {0} units far from the zero point in Unity. It is usually good practice if possible to keep it as close as possible to the absolute zero point to avoid floating-point errors.";
+        private const string WorldDescriptorOff = "场景描述符距离 Unity 原点 {0} 个单位。通常建议尽可能靠近绝对零点,以避免浮点精度误差。";
 
-        private const string DifferingSanitizedBuildPath = "The last build path differs from the one seen by the VRCSDK. This can happen with certain characters that get stripped from the path only during Build & Publish. The build path is created using the Company and Product name in the projects Player Settings.";
+        private const string DifferingSanitizedBuildPath = "上次构建路径与 VRCSDK 看到的路径不一致。某些字符仅在「构建并发布」过程中被去除时会导致此问题。构建路径由项目 Player Settings 中的公司名和产品名组成。";
 
-        private const string LastBuildFailed = "Last build failed! Check the Console for compile errors to find the cause. If the error script is in the SDK, try reimporting it. Otherwise, remove or update the problem asset.";
+        private const string LastBuildFailed = "上次构建失败!请检查控制台中的编译错误以找到原因。如果错误脚本在 SDK 中,请尝试重新导入。否则请移除或更新有问题的资源。";
 
-        private const string NoSpawnPointSet = "There are no spawn points set in your Scene Descriptor. Spawning into a world with no spawn point will cause you to get thrown back to your homeworld.";
+        private const string NoSpawnPointSet = "场景描述符中没有设置出生点(Spawn Point)。出生到没有出生点的世界会导致你被扔回主世界。";
 
-        private const string NullSpawnPoint = "Null spawn point set Scene Descriptor. Spawning into a null spawn point will cause you to get thrown back to your homeworld.";
+        private const string NullSpawnPoint = "场景描述符中设置了空出生点。出生到空出生点会导致你被扔回主世界。";
 
-        private const string ReferenceCameraClearFlagsNotSkyboxOrColor = "The current reference camera's clear flags are not set to Skybox or Solid Color. This can cause rendering problems in-game.";
+        private const string ReferenceCameraClearFlagsNotSkyboxOrColor = "当前引用摄像机的清除标志未设置为天空盒(Skybox)或纯色(Solid Color)。这可能在游戏中导致渲染问题。";
 
-        private const string ReferenceCameraClippingPlaneRatio = "Too high of a ratio between reference camera's near ({0}) and far ({1}) clip values can cause rendering issues in-game.";
+        private const string ReferenceCameraClippingPlaneRatio = "引用摄像机的近裁剪面({0})和远裁剪面({1})之间的比率过高,可能在游戏中导致渲染问题。";
 
-        private const string ReferenceCameraNearClipPlaneOver = "The current reference camera's near clip value is {0}. This value gets clamped to be between 0.01 and 0.05.";
+        private const string ReferenceCameraNearClipPlaneOver = "当前引用摄像机的近裁剪面值为 {0}。此值将被限制在 0.01 到 0.05 之间。";
 
-        private const string NoReferenceCameraSetGeneral = "No reference camera set in the Scene Descriptor. Using a reference camera allows the world's rendering distance to be changed by changing the camera's near and far clipping planes.";
+        private const string NoReferenceCameraSetGeneral = "场景描述符中未设置引用摄像机。使用引用摄像机可以通过调整摄像机的近远裁剪面来改变世界的渲染距离。";
 
-        private const string ReferenceCameraHasNoCameraComponent = "The GameObject \"{0}\" currently set in the Scene Descriptor as a reference camera does not have a camera component. This can cause various problems in-game.";
+        private const string ReferenceCameraHasNoCameraComponent = "场景描述符中设置为引用摄像机的游戏对象「{0}」没有摄像机组件。这可能在游戏中导致各种问题。";
 
-        private const string ColliderUnderSpawnIsTrigger = "The collider \"{0}\" under your spawn point {1} has been set as Is Trigger.";
-        private const string ColliderUnderSpawnIsTriggerCombined = "Found \"{0}\" spawn points which have a collider set as Is Trigger underneath.";
-        private const string ColliderUnderSpawnIsTriggerInfo = "Spawning into a world with nothing to stand on will cause the players to fall forever.";
+        private const string ColliderUnderSpawnIsTrigger = "出生点 {1} 下方的碰撞体「{0}」已设置为触发器(Is Trigger)。";
+        private const string ColliderUnderSpawnIsTriggerCombined = "发现 {0} 个出生点下方有设置为触发器的碰撞体。";
+        private const string ColliderUnderSpawnIsTriggerInfo = "出生到一个脚下无站立地面的世界会导致玩家不停坠落。";
 
-        private const string SpawnUnderRespawnHeight = "Spawn point \"{0}\" is placed {1} units under the Respawn Height set in Scene Descriptor.";
-        private const string SpawnUnderRespawnHeightCombined = "Found {0} spawn points under Respawn Height set in Scene Descriptor.";
-        private const string SpawnUnderRespawnHeightInfo = "Spawning under the Respawn Height causes players to get stuck while respawning infinitely.";
+        private const string SpawnUnderRespawnHeight = "出生点「{0}」位于场景描述符设置的重生高度下方 {1} 个单位处。";
+        private const string SpawnUnderRespawnHeightCombined = "发现 {0} 个出生点在场景描述符设置的重生高度下方。";
+        private const string SpawnUnderRespawnHeightInfo = "出生在重生高度下方会导致玩家无限卡住重生。";
 
-        private const string NoColliderUnderSpawn = "Spawn point \"{0}\" does not have a collider under it.";
-        private const string NoColliderUnderSpawnCombined = "Found {0} spawn points with no collider under them.";
-        private const string NoColliderUnderSpawnInfo = "Spawning into a world with nothing to stand on will cause the players to fall forever.";
+        private const string NoColliderUnderSpawn = "出生点「{0}」下方没有碰撞体。";
+        private const string NoColliderUnderSpawnCombined = "发现 {0} 个出生点下方无碰撞体。";
+        private const string NoColliderUnderSpawnInfo = "出生到一个脚下无站立地面的世界会导致玩家不停坠落。";
 
-        private const string RespawnHeightAboveCollider = "The collider below spawn point \"{1}\" is below respawn height set in scene descriptor.";
-        private const string RespawnHeightAboveColliderCombined = "Found {0} spawn points where the collider is below the respawn height.";
-        private const string RespawnHeightAboveColliderInfo = "This will cause players to get stuck while respawning infinitely.";
+        private const string RespawnHeightAboveCollider = "出生点「{1}」下方的碰撞体位于场景描述符设置的重生高度之下。";
+        private const string RespawnHeightAboveColliderCombined = "发现 {0} 个出生点的碰撞体位于重生高度之下。";
+        private const string RespawnHeightAboveColliderInfo = "这将导致玩家无限卡住重生。";
 
-        private const string MirrorONByDefault = "The mirror \"{0}\" is on by default.";
-        private const string MirrorONByDefaultCombined = "The scene has {0} mirrors on by default.";
-        private const string MirrorONByDefaultInfo = "This is an awful practice. Any mirrors in worlds should be disabled by default.";
+        private const string MirrorONByDefault = "镜子「{0}」默认处于开启状态。";
+        private const string MirrorONByDefaultCombined = "场景中有 {0} 面镜子默认处于开启状态。";
+        private const string MirrorONByDefaultInfo = "这是非常不好的做法。世界中的任何镜子默认都应该关闭。";
 
-        private const string MirrorWithDefaultLayers = "The mirror \"{0}\" has the default Reflect Layers set.";
-        private const string MirrorWithDefaultLayersCombined = "You have {0} mirrors that have the default Reflect Layers set.";
-        private const string MirrorWithDefaultLayersInfo = "Only having the layers needed to have enabled in mirrors can save a lot of frames, especially in populated instances.";
+        private const string MirrorWithDefaultLayers = "镜子「{0}」使用的是默认反射层设置。";
+        private const string MirrorWithDefaultLayersCombined = "你有 {0} 面镜子使用的是默认反射层设置。";
+        private const string MirrorWithDefaultLayersInfo = "只启用镜子实际需要的层可以节省大量帧率,尤其是在有人的实例中。";
 
-        private const string LegacyBlendShapeIssues = "Skinned mesh renderer found with model {0} ({1}) without Legacy Blend Shape Normals enabled.";
-        private const string LegacyBlendShapeIssuesCombined = "Found {0} models without Legacy Blend Shape Normals enabled.";
-        private const string LegacyBlendShapeIssuesInfo = "This can significantly increase the size of the world.";
+        private const string LegacyBlendShapeIssues = "发现带蒙皮的网格渲染器,模型 {0}({1})未启用 Legacy Blend Shape Normals。";
+        private const string LegacyBlendShapeIssuesCombined = "发现 {0} 个模型未启用 Legacy Blend Shape Normals。";
+        private const string LegacyBlendShapeIssuesInfo = "这会显著增加世界体积。";
 
-        private const string BakedOcclusionCulling = "Baked Occlusion Culling found.";
+        private const string BakedOcclusionCulling = "发现已烘焙的遮挡剔除(Occlusion Culling)。";
 
-        private const string NoOcclusionAreas = "No occlusion areas were found. Occlusion Areas are recommended to help generate higher precision data where the camera is likely to be. If none exist, an area is created automatically containing all Occluders and Occludees.";
+        private const string NoOcclusionAreas = "未发现遮挡区域(Occlusion Area)。建议添加遮挡区域,帮助在摄像机可能位于的位置生成更高精度的数据。如果不设置,系统会自动创建一个包含所有遮挡物和被遮挡物的区域。";
 
-        private const string DisabledOcclusionArea = "Occlusion Area {0} found with Is View Volume disabled.";
-        private const string DisabledOcclusionAreaCombined = "Occlusion Areas found with Is View Volume disabled.";
-        private const string DisabledOcclusionAreaInfo = "Without this enabled, the Occlusion Area does not get used for the occlusion bake.";
+        private const string DisabledOcclusionArea = "遮挡区域 {0} 发现已禁用「Is View Volume」。";
+        private const string DisabledOcclusionAreaCombined = "发现已禁用「Is View Volume」的遮挡区域。";
+        private const string DisabledOcclusionAreaInfo = "如果不启用此项,遮挡区域将不会被用于遮挡烘焙。";
 
-        private const string NoOcclusionCulling = "The current scene does not have baked Occlusion Culling. Occlusion culling often gives a large performance boost, especially in larger worlds with multiple rooms or areas.";
+        private const string NoOcclusionCulling = "当前场景没有烘焙遮挡剔除。遮挡剔除通常会带来显著的性能提升,尤其是在有多个房间或区域的大型世界中。";
 
-        private const string OcclusionCullingCacheWarning = "The current project's occlusion culling cache has {0} files. When the occlusion culling cache grows too big, baking occlusion culling can take much longer than intended. It can be cleared with no adverse effects.";
+        private const string OcclusionCullingCacheWarning = "当前项目的遮挡剔除缓存中有 {0} 个文件。当缓存文件过多时,烘焙遮挡剔除会比预期花费更长时间。可以安全清除,不会有不良影响。";
 
-        private const string ActiveCameraOutputtingToRenderTexture = "Active camera \"{0}\" outputting to a render texture.";
-        private const string ActiveCameraOutputtingToRenderTextureCombined = "The current scene has {0} active cameras outputting to render textures.";
-        private const string ActiveCameraOutputtingToRenderTextureInfo = "This will affect performance negatively by causing more draw calls to happen. They should only be enabled when needed.";
+        private const string ActiveCameraOutputtingToRenderTexture = "活动摄像机「{0}」正在输出到渲染纹理(Render Texture)。";
+        private const string ActiveCameraOutputtingToRenderTextureCombined = "当前场景中有 {0} 个活动摄像机正在输出到渲染纹理。";
+        private const string ActiveCameraOutputtingToRenderTextureInfo = "这会对性能产生负面影响,因为会导致更多的绘制调用。它们应该只在需要时启用。";
 
-        private const string ActiveCameraWithOverZeroDepth = "Active camera \"{0}\" targeting display 1 with render depth over 0.";
-        private const string ActiveCameraWithOverZeroDepthCombined = "The current scene has {0} active cameras targeting display 1 with render depth over 0.";
-        private const string ActiveCameraWithOverZeroDepthInfo = "This will cause it to render over the upload screen, not allowing you to upload.";
+        private const string ActiveCameraWithOverZeroDepth = "活动摄像机「{0}」目标显示器为 1,渲染深度超过 0。";
+        private const string ActiveCameraWithOverZeroDepthCombined = "当前场景中有 {0} 个活动摄像机目标显示器为 1,渲染深度超过 0。";
+        private const string ActiveCameraWithOverZeroDepthInfo = "这会导致它在上传界面上渲染,阻止你完成上传。";
 
-        private const string NoToonShaders = "Toon shaders should be avoided for world-building, as they are missing crucial things for making worlds. For world-building, the most recommended shader is Standard.";
+        private const string NoToonShaders = "构建世界时应避免使用卡通着色器(Toon Shader),因为它们缺少构建世界所需的关键功能。推荐使用 Standard 着色器。";
 
-        private const string NonCrunchedTextures = "{0}% of the textures used in the scene have not been crunch compressed. Crunch compression can significantly reduce the size of the world download. It can be found from the texture's import settings.";
+        private const string NonCrunchedTextures = "场景中 {0}% 的纹理未经过 Crunch 压缩。Crunch 压缩可以显著减少世界下载大小。可以在纹理的导入设置中找到此选项。";
 
-        private const string SingleColorEnvironmentLighting = "Consider changing the Environment Lighting Source from Color to Gradient for better ambient lighting.";
+        private const string SingleColorEnvironmentLighting = "建议将环境光照源从单色(Color)改为渐变(Gradient),以获得更好的环境光照效果。";
 
-        private const string DarkEnvironmentLighting = "Using dark colors for Environment Lighting can cause avatars to look weird. Only use dark Environment Lighting if the world has dark lighting.";
+        private const string DarkEnvironmentLighting = "使用过暗的环境光照颜色会让化身看起来不自然。仅在世界本身光线较暗的情况下才使用暗色环境光照。";
 
-        private const string CustomEnvironmentReflectionsNull = "The current scenes Environment Reflections have been set to custom, but a custom cubemap has not been defined.";
+        private const string CustomEnvironmentReflectionsNull = "当前场景的环境反射已设置为自定义(Custom),但未定义自定义立方体贴图(Cubemap)。";
 
-        private const string NoLightmapUV = "The model found in the scene \"{0}\" is set to be lightmapped, but does not have Lightmap UVs.";
-        private const string NoLightmapUVCombined = "The current scene has {0} models set to be lightmapped that do not have Lightmap UVs.";
-        private const string NoLightmapUVInfo = "This can cause issues when baking lighting if the main UV is not suitable for lightmapping. You can enable generating Lightmap UVs in the model's import settings.";
-        
-        private const string LightsNotBaked = "The current scene is using realtime lighting. Consider baked lighting for improved performance.";
-        
-        private const string NoLightingSettingsAsset = "The current scene is using baked lighting but does not have a Lighting Settings Asset.";
+        private const string NoLightmapUV = "场景中的模型「{0}」设置为可接受光照贴图,但没有光照贴图 UV。";
+        private const string NoLightmapUVCombined = "当前场景中有 {0} 个设置为接受光照贴图但没有光照贴图 UV 的模型。";
+        private const string NoLightmapUVInfo = "如果主 UV 不适合光照贴图,在烘焙光照时可能会出问题。你可以在模型的导入设置中启用生成光照贴图 UV。";
 
-        private const string ConsiderLargerLightmaps = "Possibly unoptimized lighting setup detected with a high amount of separate lightmaps compared to the currently set Lightmap Size.\nConsider increasing Lightmap Size from {0} to 2048 or larger and adjusting the individual Scale In Lightmap value on mesh renderers to fit things on a smaller amount of lightmaps.";
+        private const string LightsNotBaked = "当前场景使用的是实时光照。建议使用烘焙光照以获得更好的性能。";
 
-        private const string ConsiderSmallerLightmaps = "Baking lightmaps at 4096 with Progressive GPU will silently fall back to CPU Progressive. More than 12GB GPU Memory is needed to bake 4k lightmaps with GPU Progressive.";
+        private const string NoLightingSettingsAsset = "当前场景使用烘焙光照,但没有光照设置资源(Lighting Settings Asset)。";
 
-        private const string NonBakedBakedLight = "The light {0} is set to be baked/mixed, but it has not been baked yet!";
-        private const string NonBakedBakedLightCombined = "The scene contains {0} baked/mixed lights that have not been baked!";
-        private const string NonBakedBakedLightInfo = "Baked lights that have not been baked yet function as realtime lights in-game.";
+        private const string ConsiderLargerLightmaps = "检测到可能未优化的光照设置:独立光照贴图数量较多,而当前设置的光照贴图尺寸相对较小。\n建议将光照贴图尺寸从 {0} 增加到 2048 或更大,并调整网格渲染器上的「Scale In Lightmap」值以在更少的光照贴图上容纳更多内容。";
 
-        private const string LightingDataAssetInfo = "The current scene's lighting data asset takes up {0} MB of the world's size. It contains the lighting information for the scene, such as light probe data and realtime GI data.";
-        
-        private const string NoLightingDataAsset = "You appear to are using baked lighting but your scene does not have a Lighting Data Asset currently. Bake your lights to generate one.";
+        private const string ConsiderSmallerLightmaps = "使用 GPU Progressive 烘焙 4096 分辨率的光照贴图会静默回退到 CPU Progressive。烤 4K 光照贴图需要超过 12GB GPU 显存。";
 
-        private const string NoLightProbes = "No light probes found in the current scene. Without light probes, baked lights are not able to affect dynamic objects such as players and pickups.";
+        private const string NonBakedBakedLight = "灯光 {0} 设置为烘焙/混合模式,但尚未烘焙!";
+        private const string NonBakedBakedLightCombined = "场景中有 {0} 个设置为烘焙/混合模式但尚未烘焙的灯光!";
+        private const string NonBakedBakedLightInfo = "尚未烘焙的烘焙灯光在游戏中会作为实时光照运行。";
 
-        private const string LightProbeCountNotBaked = "The current scene contains {0} light probes, but {1} of them have not been baked yet.";
+        private const string LightingDataAssetInfo = "当前场景的光照数据资源占用了世界体积的 {0} MB。它包含场景的光照信息,如光照探针数据和实时全局光照数据。";
 
-        private const string LightProbesRemovedNotReBaked = "Some light probes have been removed after the last bake. Bake them again to update the scene's lighting data. The lighting data contains {0} baked light probes, and the current scene has {1} light probes.";
+        private const string NoLightingDataAsset = "你似乎在使用烘焙光照,但当前场景没有光照数据资源。请烘焙光照以生成一个。";
 
-        private const string LightProbeCount = "The current scene contains {0} baked light probes.";
+        private const string NoLightProbes = "当前场景中未找到光照探针(Light Probe)。没有光照探针,烘焙灯光将无法影响动态对象(如玩家和拾取物)。";
 
-        private const string OverlappingLightProbes = "Light Probe Group \"{0}\" has {1} overlapping light probes.";
-        private const string OverlappingLightProbesCombined = "Found {0} Light Probe Groups with overlapping light probes.";
-        private const string OverlappingLightProbesInfo = "These will not get baked because Unity will skip any extra overlapping probes and can cause an unnecessary slowdown in the editor.";
+        private const string LightProbeCountNotBaked = "当前场景包含 {0} 个光照探针,但其中 {1} 个尚未烘焙。";
 
-        private const string NoReflectionProbes = "The current scene has no active reflection probes. Reflection probes are needed to have proper reflections on reflective materials.";
+        private const string LightProbesRemovedNotReBaked = "上次烘焙后移除了一些光照探针。请重新烘焙以更新场景的光照数据。光照数据中包含 {0} 个已烘焙的光照探针,而当前场景有 {1} 个光照探针。";
 
-        private const string ReflectionProbesSomeUnbaked = "The reflection probe \"{0}\" is unbaked.";
-        private const string ReflectionProbesSomeUnbakedCombined = "The current scene has {0} unbaked reflection probes.";
+        private const string LightProbeCount = "当前场景包含 {0} 个已烘焙的光照探针。";
 
-        private const string ReflectionProbeCountText = "The current scene has {0} reflection probes.";
+        private const string OverlappingLightProbes = "光照探针组「{0}」有 {1} 个重叠的光照探针。";
+        private const string OverlappingLightProbesCombined = "发现 {0} 个有重叠光照探针的光照探针组。";
+        private const string OverlappingLightProbesInfo = "这些探针不会被烘焙,因为 Unity 会跳过任何额外重叠的探针,并可能在编辑器中造成不必要的性能下降。";
 
-        private const string PostProcessingImportedButNotSetup = "The current project has Post Processing imported, but you have not set it up yet.";
+        private const string NoReflectionProbes = "当前场景中没有活动的反射探针(Reflection Probe)。反射探针是让反射材质获得正确反射效果所必需的。";
 
-        private const string PostProcessingNotSupported = "Post Processing is not supported in VRChat when building for the currently selected platform.";
+        private const string ReflectionProbesSomeUnbaked = "反射探针「{0}」未烘焙。";
+        private const string ReflectionProbesSomeUnbakedCombined = "当前场景中有 {0} 个未烘焙的反射探针。";
 
-        private const string PostProcessingGenericProjectNotice = "Post Processing checks are not currently implemented for projects without the VRChat worlds SDK, as they were written with VRChat content creation in mind.";
+        private const string ReflectionProbeCountText = "当前场景有 {0} 个反射探针。";
 
-        private const string PostProcessingDisabledInSceneView = "Post-processing is disabled in the scene view. You will not be able to preview any post-processing effects without enabling it first.";
+        private const string PostProcessingImportedButNotSetup = "当前项目已导入后期处理(Post Processing),但你尚未进行设置。";
 
-        private const string PostProcessingNoResourcesSet = "The Post Process Layer on \"{0}\" does not have its resources field set properly. This causes post-processing to error out. This can be fixed by recreating the Post Processing Layer on the GameObject.";
+        private const string PostProcessingNotSupported = "针对当前所选平台构建时,VRChat 不支持后期处理。";
 
-        private const string NoReferenceCameraSetPp = "The current scene's Scene Descriptor has no Reference Camera set. Without a Reference Camera set, post-processing will not be visible in-game.";
+        private const string PostProcessingGenericProjectNotice = "后期处理检查目前尚未针对没有 VRChat Worlds SDK 的项目实现,因为它是为 VRChat 内容创建设计的。";
 
-        private const string NoPostProcessingVolumes = "No enabled Post Processing Volumes found in the scene. A Post Processing Volume is needed to apply effects to the camera's Post Processing Layer.";
+        private const string PostProcessingDisabledInSceneView = "后期处理在场景视图中被禁用。你需要先启用它才能预览后期处理效果。";
 
-        private const string ReferenceCameraNoPostProcessingLayer = "The current Reference Camera does not have a Post Processing Layer on it. A Post Processing Layer is needed for the Post Processing Volume to affect the camera.";
+        private const string PostProcessingNoResourcesSet = "「{0}」上的后期处理层(Post Process Layer)的资源字段未正确设置。这会导致后期处理报错。可以通过在游戏对象上重新创建后期处理层来修复。";
 
-        private const string PostProcessLayerUsingReservedLayer = "Your current Post Process Layer uses one of the VRChat reserved layers. Using these will break post-processing while in-game.";
+        private const string NoReferenceCameraSetPp = "当前场景的场景描述符未设置引用摄像机。没有引用摄像机,后期处理在游戏中将不可见。";
 
-        private const string VolumeBlendingLayerNotSet = "You don't have a Volume Blending Layer set in the Post Process Layer, so post-processing will not work. Using the Water or PostProcessing layer is recommended.";
+        private const string NoPostProcessingVolumes = "场景中未找到启用的后期处理体积(Post Processing Volume)。需要后期处理体积来对摄像机的后期处理层应用效果。";
 
-        private const string PostProcessingVolumeNotGlobalNoCollider = "Post Processing Volume \"{0}\" is not marked as Global and does not have a collider.";
-        private const string PostProcessingVolumeNotGlobalNoColliderCombined = "Found {0} Post Processing Volumes that are not marked as Global and do not have a collider.";
-        private const string PostProcessingVolumeNotGlobalNoColliderInfo = "The volume will not affect the camera without one of these set on it.";
+        private const string ReferenceCameraNoPostProcessingLayer = "当前引用摄像机上没有后期处理层。需要后期处理层才能让后期处理体积影响摄像机。";
 
-        private const string NoProfileSet = "Post Processing Volume \"{0}\" does not have a profile set.";
-        private const string NoProfileSetCombined = "Found {0} Post Processing Volumes with no profile set.";
+        private const string PostProcessLayerUsingReservedLayer = "你当前的后期处理层使用了 VRChat 的保留层之一。使用这些层会在游戏中破坏后期处理。";
 
-        private const string NoMatchingLayersFound = "No enabled Post Processing Volumes found with matching layers to the main Post Processing Layer. Layers currently set to: {0}";
-        
-        private const string TonemapperMissing = "No Tonemapper was found on any Post Processing Volumes. Without a Tonemapper set for your Post Processing, the colors in the scene will be distorted. If you aren't sure which to select, try Neutral or ACES.";
+        private const string VolumeBlendingLayerNotSet = "你没有在后期处理层中设置体积混合层(Volume Blending Layer),因此后期处理不会工作。建议使用 Water 或 PostProcessing 层。";
 
-        private const string GlobalTonemapperMissing = "No global Post Processing Volume with a Tonemapper was found. Consider a global Post Processing Volume with a Tonemapper as a fallback for cases in which users are outside areas covered by your current Post Processing Volumes to avoid color distortion.";
+        private const string PostProcessingVolumeNotGlobalNoCollider = "后期处理体积「{0}」未标记为全局(Global),且没有碰撞体。";
+        private const string PostProcessingVolumeNotGlobalNoColliderCombined = "发现 {0} 个未标记为全局且没有碰撞体的后期处理体积。";
+        private const string PostProcessingVolumeNotGlobalNoColliderInfo = "没有设置其中一项,该体积将无法影响摄像机。";
 
-        private const string TooHighBloomIntensity = "Do not raise the Bloom intensity too high! It is best to use a low Bloom intensity, between 0.01 to 0.3.";
+        private const string NoProfileSet = "后期处理体积「{0}」未设置配置文件。";
+        private const string NoProfileSetCombined = "发现 {0} 个未设置配置文件的后期处理体积。";
 
-        private const string TooHighBloomThreshold = "You should avoid having the Bloom Threshold be set to a high value, as it might cause unexpected problems with bright avatars. Ideally, it should be kept at 0, but always below 1.0.";
+        private const string NoMatchingLayersFound = "未找到与主后期处理层匹配的启用后的后期处理体积。当前设置的层:{0}";
+         
+        private const string TonemapperMissing = "在任何后期处理体积中都未找到色调映射器（Tonemapper）。没有设置色调映射器，场景中的颜色会失真。如果你不确定选哪个，可以试试 Neutral 或 ACES。";
 
-        private const string NoBloomDirtInVR = "Avoid using Bloom Dirt, it looks terrible in VR!";
+        private const string GlobalTonemapperMissing = "未找到带有色调映射器的全局后期处理体积。建议设置一个带有色调映射器的全局后期处理体积作为后备方案，以防用户处于当前后期处理体积覆盖范围之外，避免颜色失真。";
 
-        private const string NoAmbientOcclusion = "Do not use Post Processing Ambient Occlusion in VRChat! VRChat uses Forward rendering, so it gets applied on top of EVERYTHING, which is bad! It also has a super high rendering cost in VR.";
+        private const string TooHighBloomIntensity = "不要把 Bloom 强度调得太高！最好使用较低的 Bloom 强度，在 0.01 到 0.3 之间。";
 
-        private const string DepthOfFieldWarning = "Depth of field has a high performance cost and is very disorienting in VR. If you want to use depth of field, it should be disabled by default.";
+        private const string TooHighBloomThreshold = "应避免将 Bloom 阈值设置得太高，因为它可能对高亮化身造成意外问题。理想情况下应保持在 0，但始终低于 1.0。";
 
-        private const string ScreenSpaceReflectionsWarning = "Screen-space Reflections only works when using deferred rendering. Because VRChat uses Forward rendering, this should not be used.";
+        private const string NoBloomDirtInVR = "避免使用 Bloom Dirt，在 VR 中看起来非常糟糕！";
 
-        private const string VignetteWarning = "Only use Post Processing Vignette in small amounts. A powerful vignette can cause sickness in VR.";
+        private const string NoAmbientOcclusion = "不要在 VRChat 中使用后期处理环境光遮蔽（Ambient Occlusion）！VRChat 使用的是前向渲染，环境光遮蔽会被叠加在所有内容之上，非常糟糕！而且在 VR 中的渲染开销也极高。";
 
-        private const string AndroidBakedLightingWarning = "Realtime lighting for Android content should be avoided and instead have a properly baked lighting setup for optimal performance.";
+        private const string DepthOfFieldWarning = "景深（Depth of Field）性能开销很高，而且在 VR 中非常令人眩晕。如果你确实想用景深，默认应保持禁用状态。";
 
-        private const string AmbientModeSetToCustom = "The current scene's Environment Lighting setting is broken. This will override all light probes in the scene with black ambient light. Please change it to something else.";
+        private const string ScreenSpaceReflectionsWarning = "屏幕空间反射（Screen-space Reflections）仅在延迟渲染下工作。因为 VRChat 使用的是前向渲染，所以不应使用此功能。";
 
-        private const string NoProblemsFoundInPp = "No problems were found in your post-processing setup. In some cases where post-processing is working in the editor but not in-game, some imported assets may be causing it not to function correctly.";
+        private const string VignetteWarning = "后期处理暗角（Vignette）应少量使用。强烈的暗角效果在 VR 中可能引起不适。";
+
+        private const string AndroidBakedLightingWarning = "Android 内容应避免使用实时光照，建议使用正确烘焙的光照设置以获得最佳性能。";
+
+        private const string AmbientModeSetToCustom = "当前场景的环境光照设置已损坏。这将用黑色环境光覆盖场景中的所有光照探针。请将其更改为其他选项。";
+
+        private const string NoProblemsFoundInPp = "你的后期处理设置中未发现任何问题。在某些情况下，后期处理在编辑器中正常但在游戏中不工作，可能是某些导入的资源导致的问题。";
 
 #if BAKERY_INCLUDED && VRWT_IS_VRC
-        private const string BakeryLightNotSetEditorOnly = "Your Bakery light named \"{0}\" is not set to be EditorOnly.";
-        private const string BakeryLightNotSetEditorOnlyCombined = "You have {0} Bakery lights are not set to be EditorOnly.";
-        private const string BakeryLightNotSetEditorOnlyInfo = "This causes unnecessary errors in the output log loading into a world in VRChat because external scripts get removed in the upload process.";
+        private const string BakeryLightNotSetEditorOnly = "你的 Bakery 灯光「{0}」未设置为 EditorOnly。";
+        private const string BakeryLightNotSetEditorOnlyCombined = "你有 {0} 个 Bakery 灯光未设置为 EditorOnly。";
+        private const string BakeryLightNotSetEditorOnlyInfo = "这会导致加载 VRChat 世界时输出不必要的错误日志，因为外部脚本在上传过程中会被移除。";
 
-        private const string BakeryLightUnityLight = "Your Bakery light named \"{0}\" has an active Unity Light component on it.";
-        private const string BakeryLightUnityLightCombined = "You have {0} Bakery lights that have an active Unity Light component on it.";
-        private const string BakeryLightUnityLightInfo = "These will not get baked with Bakery and will keep acting as realtime lights even if set to baked.";
+        private const string BakeryLightUnityLight = "你的 Bakery 灯光「{0}」上有一个启用的 Unity 灯光组件。";
+        private const string BakeryLightUnityLightCombined = "你有 {0} 个 Bakery 灯光上有启用的 Unity 灯光组件。";
+        private const string BakeryLightUnityLightInfo = "这些灯光不会被 Bakery 烘焙，即使设置为烘焙模式也会持续作为实时光照运行。";
 
-        private const string ShrnmDirectionalModeBakeryError = "SH or RNM directional mode detected in Bakery. These directional modes are not supported in VRChat by default, it's highly recommended to use Mono SH instead. Otherwise the usage of an extension such as UdonBakeryAdapter by z3y is needed for compatibility with VRChat.";
+        private const string ShrnmDirectionalModeBakeryError = "检测到 Bakery 使用了 SH 或 RNM 方向模式。VRChat 默认不支持这些方向模式，强烈建议改用 Mono SH。否则需要使用扩展插件（如 z3y 的 UdonBakeryAdapter）来实现 VRChat 兼容。";
 #endif
 
-        private const string AndroidLightmapCompressionOverride = "Lightmap \"{0}\" does not have a platform-specific override set for Android.";
-        private const string AndroidLightmapCompressionOverrideCombined = "No platform-specific override set on {0} lightmaps for Android.";
-        private const string AndroidLightmapCompressionOverrideInfo = "Without setting a proper platform-specific override when building for Android, lightmaps can show noticeable banding. Suggested format \"ASTC 4x4 block\".";
+        private const string AndroidLightmapCompressionOverride = "光照贴图「{0}」没有为 Android 设置平台特定覆盖。";
+        private const string AndroidLightmapCompressionOverrideCombined = "有 {0} 个光照贴图未为 Android 设置平台特定覆盖。";
+        private const string AndroidLightmapCompressionOverrideInfo = "在为 Android 构建时，没有设置合适的平台特定覆盖，光照贴图可能会出现明显的色带。建议格式为「ASTC 4x4 块」。";
 
-        private const string MissingShaderWarning = "The material \"{0}\" found in the scene has a missing or broken shader.";
-        private const string MissingShaderWarningCombined = "Found {0} materials in the current scene that have missing or broken shaders.";
-        private const string MissingShaderWarningInfo = "These will fallback to the pink error shader.";
+        private const string MissingShaderWarning = "场景中的材质「{0}」有丢失或损坏的着色器。";
+        private const string MissingShaderWarningCombined = "当前场景中发现 {0} 个有丢失或损坏着色器的材质。";
+        private const string MissingShaderWarningInfo = "这些材质将回退为粉色错误着色器。";
 
-        private const string ErrorPauseWarning = "You have Error Pause enabled in your console. This can cause your world upload to fail by interrupting the build process.";
+        private const string ErrorPauseWarning = "你的控制台中启用了「出错时暂停」（Error Pause）。这会通过中断构建流程导致世界上传失败。";
 
-        private const string MultipleScenesLoaded = "Multiple scenes loaded, this is not supported by VRChat and can cause the world upload to fail. Only one scene should be used for world creation at a time.";
+        private const string MultipleScenesLoaded = "加载了多个场景，VRChat 不支持此操作，可能导致世界上传失败。每次创建世界应只使用一个场景。";
 
-        private const string LayersNotSetup = "Project layers are not set up for VRChat yet.";
+        private const string LayersNotSetup = "项目层尚未为 VRChat 设置。";
 
-        private const string CollisionMatrixNotSetup = "The project's Collision Matrix is not set up for VRChat yet.";
+        private const string CollisionMatrixNotSetup = "项目的碰撞矩阵尚未为 VRChat 设置。";
 
-        private const string VRChatSDKIssue = "There was an issue calling built-in functions in the VRChat SDK. The SDK packages may be corrupted or missing files. Close the project and back it up with VRChat Creator Companion in case of any issues, then go to Manage Project and select \"Reinstall All Packages\" from the more options dropdown next to the Manage Packages title.";
+        private const string VRChatSDKIssue = "调用 VRChat SDK 内置函数时出现问题。SDK 包可能已损坏或缺少文件。关闭项目并用 VRChat Creator Companion 备份以防出现问题，然后在「Manage Project」中，从「Manage Packages」标题旁的更多选项下拉菜单里选择「Reinstall All Packages」。";
 
-        private const string MaterialWithGrabPassShader = "A material ({0}) in the scene has an active GrabPass due to shader \"{1}\".";
-        private const string MaterialWithGrabPassShaderCombined = "Found {0} materials in the scene using a GrabPass.";
-        private const string MaterialWithGrabPassShaderInfoPC = "A GrabPass will halt the rendering to copy the screen's contents into a texture for the shader to read. This has a notable effect on performance.";
-        private const string MaterialWithGrabPassShaderInfoAndroid = "Please change the shader for this material. When a shader uses a GrabPass on Android, it will cause painful visual artifacts to occur, as they are not supported.";
+        private const string MaterialWithGrabPassShader = "场景中的材质（{0}）由于着色器「{1}」带有一个活动的 GrabPass。";
+        private const string MaterialWithGrabPassShaderCombined = "发现 {0} 个使用 GrabPass 的材质。";
+        private const string MaterialWithGrabPassShaderInfoPC = "GrabPass 会暂停渲染以将屏幕内容复制到纹理中供着色器读取，对性能有明显影响。";
+        private const string MaterialWithGrabPassShaderInfoAndroid = "请更换此材质的着色器。当着色器在 Android 上使用 GrabPass 时，会产生严重视觉伪影，因为 Android 上不支持 GrabPass。";
 
-        private const string MaterialWithNonWhitelistedShader = "Material \"{0}\" is using an unsupported shader \"{1}\".";
-        private const string MaterialWithNonWhitelistedShaderCombined = "Found {0} materials with unsupported shaders.";
-        private const string MaterialWithNonWhitelistedShaderInfo = "Unsupported shaders can cause problems on the Android platform if not appropriately used.";
+        private const string MaterialWithNonWhitelistedShader = "材质「{0}」使用了不支持的着色器「{1}」。";
+        private const string MaterialWithNonWhitelistedShaderCombined = "发现 {0} 个使用不支持的着色器的材质。";
+        private const string MaterialWithNonWhitelistedShaderInfo = "不支持的着色器如果使用不当可能在 Android 平台上导致问题。";
 
-        private const string UIElementWithNavigationNotNone = "The UI Element \"{0}\" does not have its Navigation set to None.";
-        private const string UIElementWithNavigationNotNoneCombined = "Found {0} UI Elements with their Navigation not set to None.";
-        private const string UIElementWithNavigationNotNoneInfo = "Setting Navigation to None on UI Elements can stop accidental interactions with them while trying to walk around.";
+        private const string UIElementWithNavigationNotNone = "UI 元素「{0}」的导航模式未设置为 None。";
+        private const string UIElementWithNavigationNotNoneCombined = "发现 {0} 个导航模式未设置为 None 的 UI 元素。";
+        private const string UIElementWithNavigationNotNoneInfo = "将 UI 元素的导航模式设置为 None 可以防止玩家在走动时意外与之交互。";
 
-        private const string ScrollRectWithScrollSensitivityNotZero = "The ScrollRect component \"{0}\" does not have its Scroll Sensitivity set to 0.";
-        private const string ScrollRectWithScrollSensitivityNotZeroCombined = "Found {0} ScrollRect components with their Scroll Sensitivity not set to 0.";
-        private const string ScrollRectWithScrollSensitivityNotZeroInfo = "Setting Scroll Sensitivity not set to 0 on ScrollRect components can stop accidental interactions with them while trying to walk around.";
+        private const string ScrollRectWithScrollSensitivityNotZero = "ScrollRect 组件「{0}」的滚动灵敏度未设置为 0。";
+        private const string ScrollRectWithScrollSensitivityNotZeroCombined = "发现 {0} 个滚动灵敏度未设置为 0 的 ScrollRect 组件。";
+        private const string ScrollRectWithScrollSensitivityNotZeroInfo = "将 ScrollRect 组件的滚动灵敏度设置为 0 可以防止玩家在走动时意外与之交互。";
 
-        private const string ParticlesWithAllowRoll = "The Particle System \"{0}\" has Allow Roll set to true.";
-        private const string ParticlesWithAllowRollCombined = "Found {0} Particle Systems with Allow Roll set to true.";
-        private const string ParticlesWithAllowRollInfo = "This causes the particles to rotate unexpectly in VR. It is recommended to disable Allow Roll on Particle Systems.";
+        private const string ParticlesWithAllowRoll = "粒子系统「{0}」的 Allow Roll 设置为 true。";
+        private const string ParticlesWithAllowRollCombined = "发现 {0} 个 Allow Roll 设置为 true 的粒子系统。";
+        private const string ParticlesWithAllowRollInfo = "这会导致粒子在 VR 中意外旋转。建议在粒子系统上禁用 Allow Roll。";
 
-        private const string TextMeshLightmapStatic = "Text Mesh \"{0}\" marked as lightmap static.";
-        private const string TextMeshLightmapStaticCombined = "Found {0} Text Meshes marked as lightmap static.";
-        private const string TextMeshLightmapStaticInfo = "This will cause warnings as the mesh has no normals.";
+        private const string TextMeshLightmapStatic = "文本网格「{0}」被标记为光照贴图静态。";
+        private const string TextMeshLightmapStaticCombined = "发现 {0} 个被标记为光照贴图静态的文本网格。";
+        private const string TextMeshLightmapStaticInfo = "这会产生警告，因为网格没有法线。";
 
-        private const string UnsupportedCompressionFormatAndroid = "Texture {0} using compression format {1} that is not supported on Android.";
-        private const string UnsupportedCompressionFormatAndroidCombined = "Found {0} textures with compression format not supported on Android.";
-        private const string UnsupportedCompressionFormatAndroidInfo = "These will appear fine in editor but black in game.";
+        private const string UnsupportedCompressionFormatAndroid = "纹理 {0} 使用了 Android 不支持的压缩格式 {1}。";
+        private const string UnsupportedCompressionFormatAndroidCombined = "发现 {0} 个使用了 Android 不支持压缩格式的纹理。";
+        private const string UnsupportedCompressionFormatAndroidInfo = "这些纹理在编辑器中看起来正常，但在游戏中会显示为黑色。";
 
-        private const string HeyYouFoundABug = "Hey, you found a bug! Please send it my way so I can fix it! Check About VRWorld Toolkit to find all the ways to contact me. \"{0}\" on line {1}.";
+        private const string HeyYouFoundABug = "嘿，你发现了一个 Bug！请反馈给我，以便我修复！查看「关于 VRWorld Toolkit」了解所有联系我的方式。「{0}」在第 {1} 行。";
 
         #endregion
 
@@ -1738,7 +1738,7 @@ namespace VRWorldToolkit.Editor
                         }
                     }
                 }
-        
+
 #if VRWT_IS_VRC
                 // Get active mirrors in the world and complain about them
                 var mirrors = FindObjectsOfType(typeof(VRC_MirrorReflection)) as VRC_MirrorReflection[];
@@ -1792,7 +1792,7 @@ namespace VRWorldToolkit.Editor
         var bakeryLights = BakeryCompat.GetBakeryLights().Distinct().ToList();
 
         var (bakerySettingsStorageObject, ftRenderLightmapType) = BakeryCompat.TryGetSettings();
-        
+
         if (BakeryCompat.IsRenderDirRNMOrSH(bakerySettingsStorageObject, ftRenderLightmapType))
         {
             const string merlinBakeryAdapter = "Merlin.VRCBakeryAdapter";
@@ -1935,14 +1935,14 @@ namespace VRWorldToolkit.Editor
                     {
                         lighting.AddMessageGroup(new MessageGroup(NoLightingSettingsAsset, MessageType.Info).SetDocumentation("https://docs.unity3d.com/2022.3/Documentation/Manual/class-LightingSettings.html"));
                     }
-                    
+
                     // Count how many light probes the scene has
                     long probeCounter = 0;
                     var probes = LightmapSettings.lightProbes;
                     long bakedProbes = probes != null ? probes.count : 0;
-                    
+
                     var overlappingLightProbesGroup = new MessageGroup(OverlappingLightProbes, OverlappingLightProbesCombined, OverlappingLightProbesInfo, MessageType.Info);
-                    
+
                     var lightProbeGroups = FindObjectsOfType<LightProbeGroup>();
                     for (var i = 0; i < lightProbeGroups.Length; i++)
                     {
@@ -1971,7 +1971,7 @@ namespace VRWorldToolkit.Editor
                                 lighting.AddMessageGroup(new MessageGroup(LightProbeCount, MessageType.Info).AddSingleMessage(new SingleMessage(probeCounter.ToString("n0"))));
                             }
                         }
-                        
+
                         if (overlappingLightProbesGroup.GetTotalCount() > 0)
                         {
                             if (overlappingLightProbesGroup.GetTotalCount() > 1)
@@ -2204,7 +2204,7 @@ namespace VRWorldToolkit.Editor
                                     {
                                         postProcessing.AddMessageGroup(new MessageGroup(VignetteWarning, MessageType.Warning).AddSingleMessage(new SingleMessage(postProcessVolume.gameObject)));
                                     }
-                                    
+
                                     var colorGrading = postProcessProfile.GetSetting<ColorGrading>();
                                     if (colorGrading && colorGrading.enabled && colorGrading.active)
                                     {
@@ -2705,7 +2705,7 @@ namespace VRWorldToolkit.Editor
             {
                 buildReportAndroid = (BuildReport)AssetDatabase.LoadAssetAtPath(AndroidBuildReportPath, typeof(BuildReport));
             }
-            
+
             if (buildReportiOS is null && File.Exists(iOSBuildReportPath))
             {
                 buildReportiOS = (BuildReport)AssetDatabase.LoadAssetAtPath(iOSBuildReportPath, typeof(BuildReport));
@@ -2783,13 +2783,13 @@ namespace VRWorldToolkit.Editor
                 if (mainList is null)
                     mainList = new MessageCategoryList();
 
-                general = mainList.CreateOrGetCategory("General");
+                general = mainList.CreateOrGetCategory("常规");
 
-                optimization = mainList.CreateOrGetCategory("Optimization");
+                optimization = mainList.CreateOrGetCategory("优化");
 
-                lighting = mainList.CreateOrGetCategory("Lighting");
+                lighting = mainList.CreateOrGetCategory("光照");
 
-                postProcessing = mainList.CreateOrGetCategory("Post Processing");
+                postProcessing = mainList.CreateOrGetCategory("后期处理");
 
 #if UDON
                 projectType = ProjectType.World;
@@ -2880,7 +2880,7 @@ namespace VRWorldToolkit.Editor
                 if (firstRefresh)
                 {
                     firstRefresh = false;
-                } 
+                }
                 else if (CheckTime.ElapsedMilliseconds >= 500)
                 {
                     autoRecheck = false;
@@ -2893,7 +2893,7 @@ namespace VRWorldToolkit.Editor
                 recheck = false;
             }
         }
-        
+
         private enum ProjectType
         {
             NotDetected,
@@ -2906,7 +2906,7 @@ namespace VRWorldToolkit.Editor
 
         private static readonly string[] MainToolbar =
         {
-            "Messages", "Build Report"
+            "消息", "构建报告"
         };
 
         private enum BuildReportType
@@ -2915,17 +2915,17 @@ namespace VRWorldToolkit.Editor
             Android = 1,
             iOS = 2
         }
-        
+
         private static readonly string[] BuildReportSelectionDropdown =
         {
             "Windows", "Android", "iOS"
         };
-        
+
         [SerializeField] private BuildReportType selectedBuildReport;
         [SerializeField] private BuildReportType previousSelectedBuildReport;
         [SerializeField] private bool overallStatsFoldout;
         [SerializeField] private bool buildReportMessagesFoldout;
-        
+
         // This is used to delay when the first scene check happens since for some reason
         // doing it too early in Unity 2022 causes noticeable lag especially in bigger scenes
         private static readonly Stopwatch InitializationDelayTimer = new();
@@ -2949,7 +2949,7 @@ namespace VRWorldToolkit.Editor
                         InitializationDelayTimer.Stop();
                         Refresh();
                     }
-                }   
+                }
             }
 
             DrawBuildReportOverviews(current);
@@ -2982,7 +2982,7 @@ namespace VRWorldToolkit.Editor
                 {
                     DrawOverview(buildReportAndroid, BuildReportType.Android);
                 }
-                
+
                 if (buildReportiOS)
                 {
                     DrawOverview(buildReportiOS, BuildReportType.iOS);
@@ -2993,26 +2993,26 @@ namespace VRWorldToolkit.Editor
             {
                 using (var verticalScope = new EditorGUILayout.VerticalScope())
                 {
-                    GUILayout.Label($"Last {type.ToString()} build:", EditorStyles.boldLabel);
+                    GUILayout.Label($"上次 {type.ToString()} 构建：", EditorStyles.boldLabel);
 
                     using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
                     {
-                        GUILayout.Label("<b>Build size:</b> " + EditorUtility.FormatBytes((long)report.summary.totalSize), Styles.LabelRichText);
+                        GUILayout.Label("<b>构建大小：</b> " + EditorUtility.FormatBytes((long)report.summary.totalSize), Styles.LabelRichText);
 
                         var currentCulture = CultureInfo.CurrentCulture;
                         var dateTimeFormat = currentCulture.DateTimeFormat;
-                        
-                        GUILayout.Label("<b>Build date:</b> " + report.summary.buildEndedAt.ToLocalTime().ToString(dateTimeFormat.ShortDatePattern), Styles.LabelRichText);
-                        
-                        GUILayout.Label("<b>Build time:</b> " + report.summary.buildEndedAt.ToLocalTime().ToString(dateTimeFormat.ShortTimePattern), Styles.LabelRichText);
 
-                        GUILayout.Label("<b>Build duration:</b> " + (report.summary.buildEndedAt - report.summary.buildStartedAt).ToString(@"hh\:mm\:ss"), Styles.LabelRichText);
-                        
-                        GUILayout.Label("<b>Errors during build:</b> " + report.summary.totalErrors, Styles.LabelRichText);
+                        GUILayout.Label("<b>构建日期：</b> " + report.summary.buildEndedAt.ToLocalTime().ToString(dateTimeFormat.ShortDatePattern), Styles.LabelRichText);
 
-                        GUILayout.Label("<b>Warnings during build:</b> " + report.summary.totalWarnings, Styles.LabelRichText);
+                        GUILayout.Label("<b>构建时间：</b> " + report.summary.buildEndedAt.ToLocalTime().ToString(dateTimeFormat.ShortTimePattern), Styles.LabelRichText);
 
-                        GUILayout.Label("<b>Build result:</b> " + report.summary.result, Styles.LabelRichText);
+                        GUILayout.Label("<b>构建耗时：</b> " + (report.summary.buildEndedAt - report.summary.buildStartedAt).ToString(@"hh\:mm\:ss"), Styles.LabelRichText);
+
+                        GUILayout.Label("<b>构建中的错误：</b> " + report.summary.totalErrors, Styles.LabelRichText);
+
+                        GUILayout.Label("<b>构建中的警告：</b> " + report.summary.totalWarnings, Styles.LabelRichText);
+
+                        GUILayout.Label("<b>构建结果：</b> " + report.summary.result, Styles.LabelRichText);
                     }
 
                     if (current.type == EventType.MouseUp && verticalScope.rect.Contains(current.mousePosition))
@@ -3039,8 +3039,8 @@ namespace VRWorldToolkit.Editor
                     {
                         GUILayout.FlexibleSpace();
 
-                        EditorGUILayout.LabelField("The editor is currently in play mode.", Styles.CenteredNoticeLabel, GUILayout.ExpandWidth(true), GUILayout.Height(20));
-                        EditorGUILayout.LabelField("Stop it to see the messages.", Styles.CenteredNoticeLabel, GUILayout.ExpandWidth(true), GUILayout.Height(20));
+                        EditorGUILayout.LabelField("编辑器当前处于运行模式。", Styles.CenteredNoticeLabel, GUILayout.ExpandWidth(true), GUILayout.Height(20));
+                        EditorGUILayout.LabelField("停止运行以查看消息。", Styles.CenteredNoticeLabel, GUILayout.ExpandWidth(true), GUILayout.Height(20));
 
                         GUILayout.FlexibleSpace();
                     }
@@ -3048,13 +3048,13 @@ namespace VRWorldToolkit.Editor
                     {
                         GUILayout.FlexibleSpace();
 
-                        EditorGUILayout.LabelField("Loading...", Styles.CenteredNoticeLabel, GUILayout.ExpandWidth(true), GUILayout.Height(20));
+                        EditorGUILayout.LabelField("加载中...", Styles.CenteredNoticeLabel, GUILayout.ExpandWidth(true), GUILayout.Height(20));
 
                         GUILayout.FlexibleSpace();
                     }
                     else
                     {
-                        if (!autoRecheck && GUILayout.Button("Refresh"))
+                        if (!autoRecheck && GUILayout.Button("刷新"))
                         {
                             recheck = true;
                             autoRecheck = true;
@@ -3076,7 +3076,7 @@ namespace VRWorldToolkit.Editor
         {
             GUILayout.FlexibleSpace();
 
-            EditorGUILayout.LabelField($"Current project type not detected.", Styles.CenteredNoticeLabel, GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true), GUILayout.Height(40));
+            EditorGUILayout.LabelField($"当前项目类型未检测到。", Styles.CenteredNoticeLabel, GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true), GUILayout.Height(40));
 
             GUILayout.FlexibleSpace();
         }
@@ -3085,7 +3085,7 @@ namespace VRWorldToolkit.Editor
         {
             GUILayout.FlexibleSpace();
 
-            EditorGUILayout.LabelField($"{projectType} projects\nnot fully supported yet.", Styles.CenteredNoticeLabel, GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true), GUILayout.Height(40));
+            EditorGUILayout.LabelField($"{projectType} 项目\n尚未完全支持。", Styles.CenteredNoticeLabel, GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true), GUILayout.Height(40));
 
             GUILayout.FlexibleSpace();
         }
@@ -3114,19 +3114,19 @@ namespace VRWorldToolkit.Editor
                             buildReportTreeView.SetReport(buildReportiOS);
                             break;
                     }
-                    
+
                     previousSelectedBuildReport = selectedBuildReport;
                 }
-                
+
                 GUILayout.Space(10);
-                
+
                 GUILayout.FlexibleSpace();
 
-                overallStatsFoldout = GUILayout.Toggle(overallStatsFoldout, "Stats", EditorStyles.toolbarButton);
+                overallStatsFoldout = GUILayout.Toggle(overallStatsFoldout, "统计", EditorStyles.toolbarButton);
 
-                buildReportMessagesFoldout = GUILayout.Toggle(buildReportMessagesFoldout, "Messages", EditorStyles.toolbarButton);
+                buildReportMessagesFoldout = GUILayout.Toggle(buildReportMessagesFoldout, "消息", EditorStyles.toolbarButton);
 
-                if (GUILayout.Button("Refresh", EditorStyles.toolbarButton))
+                if (GUILayout.Button("刷新", EditorStyles.toolbarButton))
                 {
                     RefreshBuild();
 
@@ -3150,11 +3150,11 @@ namespace VRWorldToolkit.Editor
                         }
                     }
                 }
-                
+
                 GUILayout.Space(5);
 
                 buildReportTreeView.searchString = searchField.OnToolbarGUI(buildReportTreeView.searchString);
-                
+
                 GUILayout.Space(5);
 
                 GUILayout.EndHorizontal();
@@ -3184,11 +3184,11 @@ namespace VRWorldToolkit.Editor
 
                         if (!buildReportTreeView.HasReport)
                         {
-                            EditorGUILayout.LabelField($"No Last Build Found", Styles.CenteredNoticeLabel, GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true), GUILayout.Height(40));
+                            EditorGUILayout.LabelField($"未找到上次构建", Styles.CenteredNoticeLabel, GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true), GUILayout.Height(40));
                         }
                         else
                         {
-                            EditorGUILayout.LabelField($"Last {selectedBuildReport.ToString()} Build Failed", Styles.CenteredNoticeLabel, GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true), GUILayout.Height(40));
+                            EditorGUILayout.LabelField($"上次 {selectedBuildReport.ToString()} 构建失败", Styles.CenteredNoticeLabel, GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true), GUILayout.Height(40));
                         }
 
                         GUILayout.FlexibleSpace();

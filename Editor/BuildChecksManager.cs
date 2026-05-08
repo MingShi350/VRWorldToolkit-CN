@@ -38,8 +38,8 @@ namespace VRWorldToolkit.Editor
 
                     if (spawnProblems)
                     {
-                        var selection = EditorUtility.DisplayDialogComplex("VRWorld Toolkit: Problem spawn points!", "Null or empty spawn points set in Scene Descriptor.\r\n\r\nSpawning into a null or empty spawn point will cause you get thrown back into your home world.\r\n\r\nSelect Cancel Build if you want to fix the problem yourself or press Bypass to ignore the problem and continue.",
-                            "Fix And Continue", "Cancel Build", "Bypass");
+                        var selection = EditorUtility.DisplayDialogComplex("VRWorld Toolkit：出生点有问题！", "场景描述符中设置了空或无效的出生点。\r\n\r\n出生到空或无效的出生点会导致你被扔回自己的主世界。\r\n\r\n选择「取消构建」如果你想自己修复问题，或按「跳过」忽略问题并继续。",
+                            "修复并继续", "取消构建", "跳过");
 
                         switch (selection)
                         {
@@ -53,8 +53,8 @@ namespace VRWorldToolkit.Editor
 
                     if (Object.FindObjectsOfType(typeof(PipelineManager)) is PipelineManager[] pipelines && pipelines.Length > 1)
                     {
-                        var selection = EditorUtility.DisplayDialogComplex("VRWorld Toolkit: Multiple Pipeline managers!", "Multiple Pipeline Manager components found in scene.\r\n\r\nThis can break the upload process and cause you to not be able to load into the world.\r\n\r\nSelect Cancel Build if you want to fix the problem yourself or press Bypass to ignore the problem and continue.",
-                            "Fix And Continue", "Cancel Build", "Bypass");
+                        var selection = EditorUtility.DisplayDialogComplex("VRWorld Toolkit：存在多个管线管理器！", "场景中发现了多个管线管理器（Pipeline Manager）组件。\r\n\r\n这会破坏上传流程，导致你无法加载进入世界。\r\n\r\n选择「取消构建」如果你想自己修复问题，或按「跳过」忽略问题并继续。",
+                            "修复并继续", "取消构建", "跳过");
 
                         switch (selection)
                         {

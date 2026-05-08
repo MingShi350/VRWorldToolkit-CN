@@ -29,15 +29,15 @@ namespace VRWorldToolkit.Editor
 
             EditorGUILayout.Space();
 
-            EditorGUILayout.LabelField("VRWorld Toolkit Additions", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField("VRWorld Toolkit 扩展功能", EditorStyles.boldLabel);
 
-            EditorGUILayout.LabelField("Quick set Reflect Layers:");
+            EditorGUILayout.LabelField("快速设置反射层：");
 
             EditorGUILayout.BeginHorizontal();
 
-            if (GUILayout.Button("Show only Players")) MirrorLayerChange(262656);
+            if (GUILayout.Button("仅显示玩家")) MirrorLayerChange(262656);
 
-            if (GUILayout.Button("Show Players/World")) MirrorLayerChange(264705);
+            if (GUILayout.Button("显示玩家/世界")) MirrorLayerChange(264705);
 
             EditorGUILayout.EndHorizontal();
 
@@ -46,29 +46,29 @@ namespace VRWorldToolkit.Editor
                 var currentMirror = (VRC_MirrorReflection) target;
 
                 if ((LightmapSettings.lightProbes != null && LightmapSettings.lightProbes.positions.Length == 0 && currentMirror.m_DisablePixelLights) || (LightmapSettings.lightProbes is null && currentMirror.m_DisablePixelLights))
-                    EditorGUILayout.HelpBox("No baked light probes were found in lighting data. Dynamic objects such as players and pickups will not appear lit in mirrors without baked light probes.", MessageType.Warning);
+                    EditorGUILayout.HelpBox("在光照数据中未找到烘焙的光照探针。如果没有烘焙的光照探针，动态对象（如玩家和拾取物）在镜子中将不会显示光照效果。", MessageType.Warning);
 
                 if (mirrorMask.intValue == -1025)
-                    EditorGUILayout.HelpBox("This mirror has default layers set. Unnecessary layers should be disabled to save on performance.", MessageType.Info);
+                    EditorGUILayout.HelpBox("此镜子使用的是默认层设置。应禁用不必要的层以节省性能。", MessageType.Info);
 
                 if (Helper.LayerIncludedInMask(LayerMask.NameToLayer("UiMenu"), mirrorMask.intValue))
-                    EditorGUILayout.HelpBox("Having UiMenu enabled on mirrors causes VRChat UI elements to be rendered twice, causing a noticeable performance drop in populated instances.", MessageType.Warning);
+                    EditorGUILayout.HelpBox("镜子中启用了 UiMenu 层会导致 VRChat UI 元素被渲染两次，在有人的实例中会造成明显的性能下降。", MessageType.Warning);
 
                 if (!Helper.LayerIncludedInMask(LayerMask.NameToLayer("MirrorReflection"), mirrorMask.intValue))
-                    EditorGUILayout.HelpBox("Having the MirrorReflection layer disabled will stop the player from seeing themselves in the mirror.", MessageType.Warning);
+                    EditorGUILayout.HelpBox("禁用 MirrorReflection 层会导致玩家在镜子中看不到自己。", MessageType.Warning);
 
                 if (Helper.LayerIncludedInMask(LayerMask.NameToLayer("PlayerLocal"), mirrorMask.intValue))
-                    EditorGUILayout.HelpBox("PlayerLocal is only meant to be seen in first-person view and should not be enabled on mirrors.", MessageType.Error);
+                    EditorGUILayout.HelpBox("PlayerLocal 仅用于第一人称视角，不应在镜子中启用。", MessageType.Error);
             }
 
-            showExplanations = EditorGUILayout.Foldout(showExplanations, "VRChat Specific Layer Descriptions");
+            showExplanations = EditorGUILayout.Foldout(showExplanations, "VRChat 专用层说明");
 
             if (showExplanations)
             {
-                GUILayout.Label("<b>Player:</b>\nThis layer is used to show players other than yourself.", Styles.RichTextWrap);
-                GUILayout.Label("<b>PlayerLocal:</b>\nThis layer is only used for first-person view and should not be enabled in mirrors.", Styles.RichTextWrap);
-                GUILayout.Label("<b>Environment:</b>\nThis layer is used for static meshes and objects in the world. Shares the same properties as the Default layer.", Styles.RichTextWrap);
-                GUILayout.Label("<b>MirrorReflection:</b>\nThis layer is used to fully show your own self in the mirror.", Styles.RichTextWrap);
+                GUILayout.Label("<b>Player：</b>\n此层用于显示除自己之外的其他玩家。", Styles.RichTextWrap);
+                GUILayout.Label("<b>PlayerLocal：</b>\n此层仅用于第一人称视角，不应在镜子中启用。", Styles.RichTextWrap);
+                GUILayout.Label("<b>Environment：</b>\n此层用于世界中的静态网格和物体。与 Default 层共享相同的属性。", Styles.RichTextWrap);
+                GUILayout.Label("<b>MirrorReflection：</b>\n此层用于在镜子中完整显示你自己。", Styles.RichTextWrap);
             }
 
             serializedObject.ApplyModifiedProperties();

@@ -1,8 +1,8 @@
 {
-	"name": "dev.onevr.vrworldtoolkit",
+	"name": "dev.onevr.vrworldtoolkit.zhcn",
 	"version": "3.4.1",
-	"displayName": "VRWorld Toolkit",
-	"description": "VRWorld Toolkit is a Unity Editor extension made to make VRChat world creation more accessible and lower the entry-level to make a good performing world.",
+	"displayName": "VRWorld Toolkit (汉化版)",
+	"description": "VRWorld Toolkit 是一款 Unity Editor 扩展，旨在降低 VRChat 世界创作门槛，让创建高性能世界更加容易。本分支为社区中文汉化版。\n\nVRWorld Toolkit is a Unity Editor extension made to make VRChat world creation more accessible and lower the entry-level to make a good performing world. This fork is a community Chinese localization.",
 	"unity": "2022.3",
 	"documentationUrl": "https://github.com/oneVR/VRWorldToolkit",
 	"licensesUrl": "https://github.com/oneVR/VRWorldToolkit/blob/master/LICENSE",
@@ -13,7 +13,7 @@
 	},
 	"url" : "https://github.com/oneVR/VRWorldToolkit.git#vpm",
 	"author": {
-		"name": "oneVRdev",
+		"name": "oneVRdev (汉化: 社区贡献)",
 		"email": "15145@pm.me",
 		"url": "https://oneVR.dev/"
 	},

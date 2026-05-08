@@ -36,11 +36,11 @@ namespace VRWorldToolkit.Editor
 
             EditorGUILayout.Space();
 
-            EditorGUILayout.LabelField("VRWorld Toolkit Additions", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField("VRWorld Toolkit 扩展功能", EditorStyles.boldLabel);
 
             var pedestals = serializedObject.targetObjects.Select(x => x as VRC_AvatarPedestal).OrderBy(x => x.transform.GetSiblingIndex()).ToArray();
 
-            setIDsFoldout = EditorGUILayout.Foldout(setIDsFoldout, "Mass set avatar IDs");
+            setIDsFoldout = EditorGUILayout.Foldout(setIDsFoldout, "批量设置化身 ID");
             if (setIDsFoldout)
             {
                 if (Selection.activeTransform)
@@ -49,9 +49,9 @@ namespace VRWorldToolkit.Editor
 
                     avatarIDs = Regex.Matches(avatarIDArea, AVATAR_ID_REGEX).Cast<Match>().Select(m => m.Value).ToArray();
 
-                    EditorGUILayout.LabelField("IDs found/Pedestals selected: ", avatarIDs.Length + "/" + serializedObject.targetObjects.Length, avatarIDs.Length > serializedObject.targetObjects.Length ? Styles.RedLabel : GUIStyle.none);
+                    EditorGUILayout.LabelField("找到的 ID/已选展台数：", avatarIDs.Length + "/" + serializedObject.targetObjects.Length, avatarIDs.Length > serializedObject.targetObjects.Length ? Styles.RedLabel : GUIStyle.none);
 
-                    if (GUILayout.Button("Set IDs"))
+                    if (GUILayout.Button("设置 ID"))
                     {
                         var count = Math.Min(serializedObject.targetObjects.Length, avatarIDs.Length);
 
@@ -70,13 +70,13 @@ namespace VRWorldToolkit.Editor
                 }
             }
 
-            GUILayout.Label("Selected IDs (Ordered by hierarchy):");
+            GUILayout.Label("已选 ID（按层级排序）：");
 
             for (var i = 0; i < pedestals.Length; i++)
             {
                 EditorGUI.BeginChangeCheck();
 
-                pedestals[i].blueprintId = EditorGUILayout.DelayedTextField(pedestals[i].name + " ID: ", pedestals[i].blueprintId);
+                pedestals[i].blueprintId = EditorGUILayout.DelayedTextField(pedestals[i].name + " ID：", pedestals[i].blueprintId);
 
                 if (EditorGUI.EndChangeCheck())
                 {
@@ -85,12 +85,12 @@ namespace VRWorldToolkit.Editor
                 }
             }
 
-            if (GUILayout.Button("Copy selected IDs"))
+            if (GUILayout.Button("复制已选 ID"))
             {
                 EditorGUIUtility.systemCopyBuffer = string.Join("\n", pedestals.Select(x => x.blueprintId));
             }
             
-            if (pedestals.Length == 1 && GUILayout.Button("Open on website"))
+            if (pedestals.Length == 1 && GUILayout.Button("在网页上打开"))
             {
                 var blueprintID = UnityWebRequest.EscapeURL(pedestals[0].blueprintId);
                 if (Regex.IsMatch(blueprintID, AVATAR_ID_REGEX))
@@ -99,7 +99,7 @@ namespace VRWorldToolkit.Editor
                 }
                 else
                 {
-                    EditorUtility.DisplayDialog("Warning", "Avatar ID in invalid format.", "Ok");
+                    EditorUtility.DisplayDialog("警告", "化身 ID 格式无效。", "确定");
                 }
             }
         }

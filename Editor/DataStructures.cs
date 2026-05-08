@@ -190,20 +190,20 @@ namespace VRWorldToolkit.Editor
 
         public static int MaxSizeIntPopup(int value)
         {
-            return EditorGUILayout.IntPopup("Max Size", value, maxTextureNames, maxTextureSizes);
+            return EditorGUILayout.IntPopup("最大尺寸", value, maxTextureNames, maxTextureSizes);
         }
 
         public static readonly string[] WindowsFormatOptions =
         {
-            new("RGB(A) Compressed BC7"),
-            new("RGBA Compressed DXT5|BC3"),
-            new("RGBA Crunched DXT5|BC3"),
-            new("RGBA 64 bit"),
-            new("RGBA 32 bit"),
-            new("ARGB 16 bit"),
-            new("RG Compressed BC5"),
-            new("RGBA Float"),
-            new("RGBA Half"),
+            new("RGB(A) 压缩 BC7"),
+            new("RGBA 压缩 DXT5|BC3"),
+            new("RGBA Crunch 压缩 DXT5|BC3"),
+            new("RGBA 64 位"),
+            new("RGBA 32 位"),
+            new("ARGB 16 位"),
+            new("RG 压缩 BC5"),
+            new("RGBA 浮点"),
+            new("RGBA 半精度"),
         };
 
         public static readonly int[] WindowsFormatValues =
@@ -221,27 +221,27 @@ namespace VRWorldToolkit.Editor
 
         public static int WindowsFormatIntPopup(int value)
         {
-            return EditorGUILayout.IntPopup("Format", value, WindowsFormatOptions, WindowsFormatValues);
+            return EditorGUILayout.IntPopup("格式", value, WindowsFormatOptions, WindowsFormatValues);
         }
 
         public static readonly string[] MobileFormatOptions =
         {
-            "RGB(A) Compressed ASTC 4x4 block",
-            "RGB(A) Compressed ASTC 5x5 block",
-            "RGB(A) Compressed ASTC 6x6 block",
-            "RGB(A) Compressed ASTC 8x8 block",
-            "RGB(A) Compressed ASTC 10x10 block",
-            "RGB(A) Compressed ASTC 12x12 block",
-            "RGBA Compressed ETC2 8 bits",
-            "RGB + 1-bit Alpha Compressed ETC2 4 bits",
-            "RGB Compressed ETC2 4 bits",
-            "RGBA Crunched ETC2",
-            "RGB Crunched ETC",
-            "RGBA 32 bit",
-            "RGBA 16 bit",
-            "RGB 24 bit",
-            "RGBA Half",
-            "RGBA Float",
+            "RGB(A) 压缩 ASTC 4x4 块",
+            "RGB(A) 压缩 ASTC 5x5 块",
+            "RGB(A) 压缩 ASTC 6x6 块",
+            "RGB(A) 压缩 ASTC 8x8 块",
+            "RGB(A) 压缩 ASTC 10x10 块",
+            "RGB(A) 压缩 ASTC 12x12 块",
+            "RGBA 压缩 ETC2 8 位",
+            "RGB + 1位Alpha 压缩 ETC2 4 位",
+            "RGB 压缩 ETC2 4 位",
+            "RGBA Crunch 压缩 ETC2",
+            "RGB Crunch 压缩 ETC",
+            "RGBA 32 位",
+            "RGBA 16 位",
+            "RGB 24 位",
+            "RGBA 半精度",
+            "RGBA 浮点",
         };
 
         public static readonly int[] MobileFormatValues =
@@ -266,7 +266,7 @@ namespace VRWorldToolkit.Editor
 
         public static int MobileFormatIntPopup(int value)
         {
-            return EditorGUILayout.IntPopup("Format", value, MobileFormatOptions, MobileFormatValues);
+            return EditorGUILayout.IntPopup("格式", value, MobileFormatOptions, MobileFormatValues);
         }
     }
 

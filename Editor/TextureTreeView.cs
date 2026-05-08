@@ -270,11 +270,11 @@ namespace VRWorldToolkit.Editor
             if (FindItem(id, rootItem) is not TextureTreeViewItem item) return;
 
             var menu = new GenericMenu();
-            menu.AddItem(new GUIContent("Copy Name"), false, ReplaceClipboard, Path.GetFileName(item.AssetPath));
-            menu.AddItem(new GUIContent("Copy Path"), false, ReplaceClipboard, item.AssetPath);
+            menu.AddItem(new GUIContent("复制名称"), false, ReplaceClipboard, Path.GetFileName(item.AssetPath));
+            menu.AddItem(new GUIContent("复制路径"), false, ReplaceClipboard, item.AssetPath);
             menu.AddSeparator("");
-            menu.AddItem(new GUIContent("Reveal in Explorer"), false, () => EditorUtility.RevealInFinder(item.AssetPath));
-            menu.AddItem(new GUIContent("Select in Assets"), false, SelectAssetsInProjectWindow);
+            menu.AddItem(new GUIContent("在资源管理器中显示"), false, () => EditorUtility.RevealInFinder(item.AssetPath));
+            menu.AddItem(new GUIContent("在资源中选中"), false, SelectAssetsInProjectWindow);
             menu.ShowAsContext();
 
             void ReplaceClipboard(object input)
@@ -351,7 +351,7 @@ namespace VRWorldToolkit.Editor
                     // Using ToString here returns CompressedAutomatic instead of Automatic so manually overriding it here
                     if (item.Format == TextureImporterFormat.Automatic)
                     {
-                        GUI.Label(rect, "Automatic", labelStyle);
+                        GUI.Label(rect, "自动", labelStyle);
                     }
                     else
                     {
@@ -418,7 +418,7 @@ namespace VRWorldToolkit.Editor
 
                 if (currentValue != newValue)
                 {
-                    string tooltip = $"Current: {currentText}";
+                    string tooltip = $"当前：{currentText}";
                     string text = ObjectNames.NicifyVariableName(newValue.ToString());
 
                     if (MemorySize(newValue) < MemorySize(currentValue))
@@ -472,7 +472,7 @@ namespace VRWorldToolkit.Editor
 
                     if (currentValue != newValue)
                     {
-                        string tooltip = $"Current: {(currentValue ? "Yes" : "No")}";
+                        string tooltip = $"当前：{(currentValue ? "是" : "否")}";
                         string text = newValue ? "✓" : "―";
                         var style = newValue ? Styles.TreeViewLabelPositiveCenter : Styles.TreeViewLabelNegativeCenter;
 
@@ -554,7 +554,7 @@ namespace VRWorldToolkit.Editor
 
             if (changes)
             {
-                string tooltip = $"Current: {currentQuality}";
+                string tooltip = $"当前：{currentQuality}";
 
                 if (displayQuality > currentQuality)
                 {
@@ -589,7 +589,7 @@ namespace VRWorldToolkit.Editor
 
                 if (changes)
                 {
-                    var tooltip = $"Current: {currentSize}";
+                    var tooltip = $"当前：{currentSize}";
 
                     if (newSize < currentSize)
                     {
@@ -634,7 +634,7 @@ namespace VRWorldToolkit.Editor
 
                 if (changes)
                 {
-                    string tooltip = $"Current: {currentSize}";
+                    string tooltip = $"当前：{currentSize}";
 
                     if (newSize < currentSize)
                     {
@@ -664,7 +664,7 @@ namespace VRWorldToolkit.Editor
 
             if (!item.IsPlatformOverridden(platform) && !platformSettings.Override || platformSettings.DisableOverrides)
             {
-                GUI.Label(rect, "(Automatic)", Styles.TreeViewLabelDimmed);
+                GUI.Label(rect, "（自动）", Styles.TreeViewLabelDimmed);
                 return;
             }
 
@@ -693,7 +693,7 @@ namespace VRWorldToolkit.Editor
                 new MultiColumnHeaderState.Column
                 {
                     headerContent = EditorGUIUtility.IconContent("Texture Icon"),
-                    contextMenuText = "Preview",
+                    contextMenuText = "预览",
                     headerTextAlignment = TextAlignment.Center,
                     sortedAscending = true,
                     sortingArrowAlignment = TextAlignment.Center,
@@ -705,7 +705,7 @@ namespace VRWorldToolkit.Editor
                 },
                 new MultiColumnHeaderState.Column
                 {
-                    headerContent = new GUIContent("Storage Size", "Storage size on disk"),
+                    headerContent = new GUIContent("存储大小", "磁盘上的存储大小"),
                     headerTextAlignment = TextAlignment.Right,
                     sortedAscending = false,
                     sortingArrowAlignment = TextAlignment.Right,
@@ -717,7 +717,7 @@ namespace VRWorldToolkit.Editor
                 },
                 new MultiColumnHeaderState.Column
                 {
-                    headerContent = new GUIContent("Name"),
+                    headerContent = new GUIContent("名称"),
                     headerTextAlignment = TextAlignment.Left,
                     sortedAscending = true,
                     sortingArrowAlignment = TextAlignment.Center,
@@ -728,7 +728,7 @@ namespace VRWorldToolkit.Editor
                 },
                 new MultiColumnHeaderState.Column
                 {
-                    headerContent = new GUIContent("Original Size", "Original texture dimensions"),
+                    headerContent = new GUIContent("原始尺寸", "原始纹理尺寸"),
                     headerTextAlignment = TextAlignment.Right,
                     sortedAscending = false,
                     sortingArrowAlignment = TextAlignment.Right,
@@ -740,7 +740,7 @@ namespace VRWorldToolkit.Editor
                 },
                 new MultiColumnHeaderState.Column
                 {
-                    headerContent = new GUIContent("Type"),
+                    headerContent = new GUIContent("类型"),
                     headerTextAlignment = TextAlignment.Left,
                     sortedAscending = true,
                     sortingArrowAlignment = TextAlignment.Right,
@@ -752,7 +752,7 @@ namespace VRWorldToolkit.Editor
                 },
                 new MultiColumnHeaderState.Column
                 {
-                    headerContent = new GUIContent("Shape"),
+                    headerContent = new GUIContent("形状"),
                     headerTextAlignment = TextAlignment.Left,
                     sortedAscending = true,
                     sortingArrowAlignment = TextAlignment.Right,
@@ -763,7 +763,7 @@ namespace VRWorldToolkit.Editor
                 },
                 new MultiColumnHeaderState.Column
                 {
-                    headerContent = new GUIContent("Max Size"),
+                    headerContent = new GUIContent("最大尺寸"),
                     headerTextAlignment = TextAlignment.Right,
                     sortedAscending = false,
                     sortingArrowAlignment = TextAlignment.Right,
@@ -775,7 +775,7 @@ namespace VRWorldToolkit.Editor
                 },
                 new MultiColumnHeaderState.Column
                 {
-                    headerContent = new GUIContent("Format", "Format Default"),
+                    headerContent = new GUIContent("格式", "默认格式"),
                     headerTextAlignment = TextAlignment.Left,
                     sortedAscending = false,
                     sortingArrowAlignment = TextAlignment.Left,
@@ -787,7 +787,7 @@ namespace VRWorldToolkit.Editor
                 },
                 new MultiColumnHeaderState.Column
                 {
-                    headerContent = new GUIContent("Compression"),
+                    headerContent = new GUIContent("压缩"),
                     headerTextAlignment = TextAlignment.Left,
                     sortedAscending = true,
                     sortingArrowAlignment = TextAlignment.Right,
@@ -798,7 +798,7 @@ namespace VRWorldToolkit.Editor
                 },
                 new MultiColumnHeaderState.Column
                 {
-                    headerContent = new GUIContent("Crunched"),
+                    headerContent = new GUIContent("Crunch 压缩"),
                     headerTextAlignment = TextAlignment.Center,
                     sortedAscending = false,
                     sortingArrowAlignment = TextAlignment.Right,
@@ -809,7 +809,7 @@ namespace VRWorldToolkit.Editor
                 },
                 new MultiColumnHeaderState.Column
                 {
-                    headerContent = new GUIContent("Quality"),
+                    headerContent = new GUIContent("质量"),
                     headerTextAlignment = TextAlignment.Right,
                     sortedAscending = false,
                     sortingArrowAlignment = TextAlignment.Right,
@@ -832,7 +832,7 @@ namespace VRWorldToolkit.Editor
                 },
                 new MultiColumnHeaderState.Column
                 {
-                    headerContent = new GUIContent("Format", "Format Windows"),
+                    headerContent = new GUIContent("格式", "Windows 格式"),
                     headerTextAlignment = TextAlignment.Left,
                     sortedAscending = false,
                     sortingArrowAlignment = TextAlignment.Left,
@@ -856,7 +856,7 @@ namespace VRWorldToolkit.Editor
                 },
                 new MultiColumnHeaderState.Column
                 {
-                    headerContent = new GUIContent("Format", "Format Android"),
+                    headerContent = new GUIContent("格式", "Android 格式"),
                     headerTextAlignment = TextAlignment.Left,
                     sortedAscending = false,
                     sortingArrowAlignment = TextAlignment.Right,
@@ -880,7 +880,7 @@ namespace VRWorldToolkit.Editor
                 },
                 new MultiColumnHeaderState.Column
                 {
-                    headerContent = new GUIContent("Format", "Format iOS"),
+                    headerContent = new GUIContent("格式", "iOS 格式"),
                     headerTextAlignment = TextAlignment.Left,
                     sortedAscending = false,
                     sortingArrowAlignment = TextAlignment.Right,

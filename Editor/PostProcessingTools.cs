@@ -16,14 +16,14 @@ namespace VRWorldToolkit.Editor
     public class PostProcessingTools : MonoBehaviour
     {
 #if VRC_SDK_VRCSDK3
-        [MenuItem("VRWorld Toolkit/Post Processing/Setup Post Processing", false, 1)]
+        [MenuItem("VRWorld Toolkit/后期处理/设置后期处理", false, 1)]
         private static void PostProcessingSetup()
         {
 #if UNITY_POST_PROCESSING_STACK_V2
             var sceneDescriptors = FindObjectsOfType(typeof(VRC_SceneDescriptor)) as VRC_SceneDescriptor[];
             var avatarDescriptors = FindObjectsOfType(typeof(VRC_AvatarDescriptor)) as VRC_AvatarDescriptor[];
 
-            if (UpdateLayers.AreLayersSetup() || EditorUtility.DisplayDialog("Layers Missing!", "You haven't setup the project layers from the VRCSDK Builder tab.\r\n\r\nSelect Continue to set them up now.", "Continue", "Cancel"))
+            if (UpdateLayers.AreLayersSetup() || EditorUtility.DisplayDialog("缺少层设置！", "你尚未在 VRCSDK Builder 选项卡中设置项目层。\r\n\r\n选择「继续」立即设置。", "继续", "取消"))
             {
                 UpdateLayers.SetupEditorLayers();
 
@@ -33,17 +33,17 @@ namespace VRWorldToolkit.Editor
                     {
                         SetupBasicPostProcessing();
                     }
-                    else if (EditorUtility.DisplayDialog("Scene descriptor missing!",
-                        "No scene descriptor or avatar descriptors was found. A scene descriptor must exist and contain a reference camera for post-processing to appear in-game.\r\n\r\nYou can add a scene descriptor by adding a VRCWorld prefab included with the SDK.\r\n\r\nSelect Cancel to return and add a scene descriptor so the setup can set the reference camera for you, or select Continue to ignore this warning.",
-                        "Continue",
-                        "Cancel"))
+                    else if (EditorUtility.DisplayDialog("缺少场景描述符！",
+                        "未找到场景描述符或化身描述符。场景描述符必须存在且包含引用摄像机，后期处理才能在游戏中显示。\r\n\r\n你可以通过添加 SDK 附带的 VRCWorld 预制体来添加场景描述符。\r\n\r\n选择「取消」返回并添加场景描述符让设置自动配置引用摄像机，或选择「继续」忽略此警告。",
+                        "继续",
+                        "取消"))
                     {
                         SetupBasicPostProcessing();
                     }
                 }
                 else if (sceneDescriptors.Length > 1)
                 {
-                    EditorUtility.DisplayDialog("Multiple scene descriptors!", "Multiple scene descriptors found, remove any you aren't using and run the setup again.", "OK");
+                    EditorUtility.DisplayDialog("存在多个场景描述符！", "发现多个场景描述符，请移除未使用的描述符后重新运行设置。", "确定");
                 }
                 else
                 {
@@ -53,14 +53,14 @@ namespace VRWorldToolkit.Editor
 #endif
         }
 
-        [MenuItem("VRWorld Toolkit/Post Processing/Setup Post Processing", true)]
+        [MenuItem("VRWorld Toolkit/后期处理/设置后期处理", true)]
         private static bool PostProcessingSetupValidation()
         {
             return !(Helper.BuildPlatform() is RuntimePlatform.Android);
         }
 #endif
 
-        [MenuItem("VRWorld Toolkit/Post Processing/Post Processing Guide", false, 2)]
+        [MenuItem("VRWorld Toolkit/后期处理/后期处理指南", false, 2)]
         private static void PostProcessingGuide()
         {
             Application.OpenURL("https://gitlab.com/s-ilent/SCSS/-/wikis/Other/Post-Processing");
@@ -76,7 +76,7 @@ namespace VRWorldToolkit.Editor
             }
             else
             {
-                if (EditorUtility.DisplayDialog("No main camera!", "No main camera found in the current scene. The main camera is needed to create the Post Processing Volume.\r\n\r\nSelect Continue to create a new one.", "Continue", "Cancel"))
+                if (EditorUtility.DisplayDialog("没有主摄像机！", "当前场景中未找到主摄像机。需要主摄像机来创建后期处理体积（Post Processing Volume）。\r\n\r\n选择「继续」创建一个新的。", "继续", "取消"))
                 {
                     camera = Helper.CreateMainCamera();
                 }
@@ -91,7 +91,7 @@ namespace VRWorldToolkit.Editor
 #if VRC_SDK_VRCSDK3
         private static void SetupWorldPostProcessing(VRC_SceneDescriptor[] descriptors)
         {
-            if (EditorUtility.DisplayDialog("Setup Post Processing?", "This will setup your scenes Reference Camera and make a new global volume using the included example Post Processing Profile.", "OK", "Cancel"))
+            if (EditorUtility.DisplayDialog("设置后期处理？", "这将设置你场景的引用摄像机，并使用附带的示例后期处理配置文件创建一个新的全局体积。", "确定", "取消"))
             {
                 var referenceCamera = descriptors.Length > 0 && descriptors[0].ReferenceCamera;
 
@@ -99,7 +99,7 @@ namespace VRWorldToolkit.Editor
 
                 if (!referenceCamera && Camera.main is null)
                 {
-                    if (EditorUtility.DisplayDialog("No main camera!", "No main camera found in the current scene. The main camera is needed to create the Post Processing Volume.\r\n\r\nSelect Continue to create a new one.", "Continue", "Cancel"))
+                    if (EditorUtility.DisplayDialog("没有主摄像机！", "当前场景中未找到主摄像机。需要主摄像机来创建后期处理体积（Post Processing Volume）。\r\n\r\n选择「继续」创建一个新的。", "继续", "取消"))
                     {
                         camera = Helper.CreateMainCamera();
 
@@ -173,7 +173,7 @@ namespace VRWorldToolkit.Editor
 
             // Notify the user if the default profile was not found during setup
             if (!profileFound)
-                EditorUtility.DisplayDialog("Default profile not found!", "Default Post Processing Profile was not found during setup, so it was automatically not set in the Post Processing Volume.\n\nCreate your profile to finish the setup.", "Ok");
+                EditorUtility.DisplayDialog("未找到默认配置文件！", "设置过程中未找到默认的后期处理配置文件，因此未自动设置到后期处理体积中。\n\n请创建你自己的配置文件来完成设置。", "确定");
 #endif
         }
     }

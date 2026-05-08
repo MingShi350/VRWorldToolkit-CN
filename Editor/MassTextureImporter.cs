@@ -26,33 +26,33 @@ namespace VRWorldToolkit.Editor
     [Flags]
     public enum TextureTypeFilter
     {
-        [InspectorName("Default")] Default = 1 << 0,
-        [InspectorName("Normal map")] NormalMap = 1 << 1,
-        [InspectorName("Editor GUI and Legacy GUI")] GUI = 1 << 2,
+        [InspectorName("默认")] Default = 1 << 0,
+        [InspectorName("法线贴图")] NormalMap = 1 << 1,
+        [InspectorName("编辑器 GUI 和旧版 GUI")] GUI = 1 << 2,
         [InspectorName("Cookie")] Cookie = 1 << 4,
-        [InspectorName("Lightmap")] Lightmap = 1 << 6,
-        [InspectorName("Cursor")] Cursor = 1 << 7,
-        [InspectorName("Sprite (2D and UI)")] Sprite = 1 << 8,
-        [InspectorName("Single Channel")] SingleChannel = 1 << 10,
-        [InspectorName("Shadowmask")] Shadowmask = 1 << 11,
-        [InspectorName("Directional Lightmap")] DirectionalLightmap = 1 << 12,
+        [InspectorName("光照贴图")] Lightmap = 1 << 6,
+        [InspectorName("光标")] Cursor = 1 << 7,
+        [InspectorName("Sprite（2D 和 UI）")] Sprite = 1 << 8,
+        [InspectorName("单通道")] SingleChannel = 1 << 10,
+        [InspectorName("阴影遮罩")] Shadowmask = 1 << 11,
+        [InspectorName("方向光照贴图")] DirectionalLightmap = 1 << 12,
     }
 
     [Flags]
     public enum TextureShapeFilter
     {
         [InspectorName("2D")] Texture2D = 1 << 1,
-        [InspectorName("Cube")] TextureCube = 1 << 2,
-        [InspectorName("2D Array")] Texture2DArray = 1 << 3,
+        [InspectorName("立方体")] TextureCube = 1 << 2,
+        [InspectorName("2D 数组")] Texture2DArray = 1 << 3,
         [InspectorName("3D")] Texture3D = 1 << 4,
     }
 
     public enum TextureCompressionMode
     {
         None = 0,
-        [InspectorName("Low Quality")] LowQuality = 1,
-        [InspectorName("Normal Quality")] NormalQuality = 2,
-        [InspectorName("High Quality")] HighQuality = 3
+        [InspectorName("低质量")] LowQuality = 1,
+        [InspectorName("标准质量")] NormalQuality = 2,
+        [InspectorName("高质量")] HighQuality = 3
     }
 
     public static class MassTextureImporterExtensions
@@ -85,16 +85,16 @@ namespace VRWorldToolkit.Editor
         {
             return type switch
             {
-                TextureImporterType.Default => "Default",
-                TextureImporterType.NormalMap => "Normal map",
-                TextureImporterType.GUI => "Editor GUI and Legacy GUI",
+                TextureImporterType.Default => "默认",
+                TextureImporterType.NormalMap => "法线贴图",
+                TextureImporterType.GUI => "编辑器 GUI 和旧版 GUI",
                 TextureImporterType.Cookie => "Cookie",
-                TextureImporterType.Lightmap => "Lightmap",
-                TextureImporterType.Cursor => "Cursor",
-                TextureImporterType.Sprite => "Sprite (2D and UI)",
-                TextureImporterType.SingleChannel => "Single Channel",
-                TextureImporterType.Shadowmask => "Shadowmask",
-                TextureImporterType.DirectionalLightmap => "Directional Lightmap",
+                TextureImporterType.Lightmap => "光照贴图",
+                TextureImporterType.Cursor => "光标",
+                TextureImporterType.Sprite => "Sprite（2D 和 UI）",
+                TextureImporterType.SingleChannel => "单通道",
+                TextureImporterType.Shadowmask => "阴影遮罩",
+                TextureImporterType.DirectionalLightmap => "方向光照贴图",
                 _ => type.ToString()
             };
         }
@@ -104,8 +104,8 @@ namespace VRWorldToolkit.Editor
             return shape switch
             {
                 TextureImporterShape.Texture2D => "2D",
-                TextureImporterShape.TextureCube => "Cube",
-                TextureImporterShape.Texture2DArray => "2D Array",
+                TextureImporterShape.TextureCube => "立方体",
+                TextureImporterShape.Texture2DArray => "2D 数组",
                 TextureImporterShape.Texture3D => "3D",
                 _ => shape.ToString()
             };
@@ -125,7 +125,7 @@ namespace VRWorldToolkit.Editor
 
     public class StandalonePlatformConfig : PlatformConfig
     {
-        public override string DisplayName => "Windows, Mac, Linux";
+        public override string DisplayName => "Windows、Mac、Linux";
         public override string PlatformKey => "Standalone";
         public override string IconName => "BuildSettings.Standalone";
         public override int DefaultFormat => (int)TextureImporterFormat.DXT5Crunched;
@@ -225,7 +225,7 @@ namespace VRWorldToolkit.Editor
         {
             _tabs.Insert(0, new Tab
             {
-                Label = "Default",
+                Label = "默认",
                 IconName = null,
                 Icon = null,
                 DrawContent = drawContent
@@ -325,10 +325,10 @@ namespace VRWorldToolkit.Editor
         {
             using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
             {
-                DisableOverrides = EditorGUILayout.ToggleLeft($"Disable Overrides for {DisplayName}", DisableOverrides);
+                DisableOverrides = EditorGUILayout.ToggleLeft($"禁用 {DisplayName} 的覆盖", DisableOverrides);
                 using (new EditorGUI.DisabledScope(DisableOverrides))
                 {
-                    Override = EditorGUILayout.ToggleLeft($"Override for {DisplayName}", Override);
+                    Override = EditorGUILayout.ToggleLeft($"覆盖 {DisplayName}", Override);
 
                     using (new EditorGUI.DisabledScope(!Override))
                     using (new EditorGUI.IndentLevelScope())
@@ -336,20 +336,20 @@ namespace VRWorldToolkit.Editor
                         MaxTextureSize = Selectors.MaxSizeIntPopup(MaxTextureSize);
                         using (new EditorGUI.IndentLevelScope())
                         {
-                            MaxSizeCondition = (OverrideCondition)EditorGUILayout.EnumPopup("Override When", MaxSizeCondition);
+                            MaxSizeCondition = (OverrideCondition)EditorGUILayout.EnumPopup("覆盖条件", MaxSizeCondition);
                         }
 
                         Format = _config.DrawFormatSelector(Format);
 
                         if (IsCrunchedFormat)
                         {
-                            UseCrunchCompression = EditorGUILayout.Toggle("Use Crunch Compression", UseCrunchCompression);
-                            CrunchQuality = EditorGUILayout.IntSlider("Compressor Quality", CrunchQuality, 1, 100);
+                            UseCrunchCompression = EditorGUILayout.Toggle("使用 Crunch 压缩", UseCrunchCompression);
+                            CrunchQuality = EditorGUILayout.IntSlider("压缩质量", CrunchQuality, 1, 100);
                         }
 
                         if (HasCompressionQuality)
                         {
-                            TextureCompressionQuality = (TextureCompressionQuality)EditorGUILayout.EnumPopup("Compressor Quality", TextureCompressionQuality);
+                            TextureCompressionQuality = (TextureCompressionQuality)EditorGUILayout.EnumPopup("压缩质量", TextureCompressionQuality);
                         }
                     }
                 }
@@ -464,42 +464,42 @@ namespace VRWorldToolkit.Editor
         {
             using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
             {
-                ChangeMaxSize = EditorGUILayout.Toggle("Change Max Size", ChangeMaxSize);
+                ChangeMaxSize = EditorGUILayout.Toggle("更改最大尺寸", ChangeMaxSize);
                 using (new EditorGUI.DisabledScope(!ChangeMaxSize))
                 using (new EditorGUI.IndentLevelScope())
                 {
                     MaxTextureSize = Selectors.MaxSizeIntPopup(MaxTextureSize);
                     using (new EditorGUI.IndentLevelScope())
                     {
-                        MaxSizeCondition = (OverrideCondition)EditorGUILayout.EnumPopup("Override When", MaxSizeCondition);
+                        MaxSizeCondition = (OverrideCondition)EditorGUILayout.EnumPopup("覆盖条件", MaxSizeCondition);
                     }
                 }
 
                 EditorGUILayout.Space();
 
-                ChangeCompression = EditorGUILayout.Toggle("Change Compression", ChangeCompression);
+                ChangeCompression = EditorGUILayout.Toggle("更改压缩", ChangeCompression);
                 using (new EditorGUI.DisabledScope(!ChangeCompression))
                 using (new EditorGUI.IndentLevelScope())
                 {
-                    Compression = (TextureCompressionMode)EditorGUILayout.EnumPopup("Compression", Compression);
-                    IgnoreUncompressed = EditorGUILayout.Toggle("Ignore Uncompressed", IgnoreUncompressed);
+                    Compression = (TextureCompressionMode)EditorGUILayout.EnumPopup("压缩", Compression);
+                    IgnoreUncompressed = EditorGUILayout.Toggle("忽略未压缩", IgnoreUncompressed);
                 }
 
                 EditorGUILayout.Space();
 
                 using (new EditorGUI.DisabledScope(Compression == TextureCompressionMode.None))
                 {
-                    ChangeCrunch = EditorGUILayout.Toggle("Change Crunch Compression", ChangeCrunch);
+                    ChangeCrunch = EditorGUILayout.Toggle("更改 Crunch 压缩", ChangeCrunch);
                     using (new EditorGUI.DisabledScope(!ChangeCrunch))
                     using (new EditorGUI.IndentLevelScope())
                     {
-                        UseCrunch = EditorGUILayout.Toggle("Use Crunch Compression", UseCrunch);
-                        CrunchQuality = EditorGUILayout.IntSlider("Quality", CrunchQuality, 1, 100);
+                        UseCrunch = EditorGUILayout.Toggle("使用 Crunch 压缩", UseCrunch);
+                        CrunchQuality = EditorGUILayout.IntSlider("质量", CrunchQuality, 1, 100);
                         using (new EditorGUI.IndentLevelScope())
                         {
-                            CrunchQualityCondition = (OverrideCondition)EditorGUILayout.EnumPopup("Override When", CrunchQualityCondition);
+                            CrunchQualityCondition = (OverrideCondition)EditorGUILayout.EnumPopup("覆盖条件", CrunchQualityCondition);
                         }
-                        SkipCrunchWhen = (DontOverrideWhen)EditorGUILayout.EnumPopup("Don't Override When", SkipCrunchWhen);
+                        SkipCrunchWhen = (DontOverrideWhen)EditorGUILayout.EnumPopup("不覆盖条件", SkipCrunchWhen);
                     }
                 }
             }
@@ -759,35 +759,35 @@ namespace VRWorldToolkit.Editor
 
         private void DrawFilters()
         {
-            GUILayout.Label("Filters", Styles.BoldWrap);
+            GUILayout.Label("过滤器", Styles.BoldWrap);
             using (new EditorGUI.IndentLevelScope())
             {
-                TypeFilter = (TextureTypeFilter)EditorGUILayout.EnumFlagsField("Texture Type", TypeFilter);
-                ShapeFilter = (TextureShapeFilter)EditorGUILayout.EnumFlagsField("Texture Shape", ShapeFilter);
+                TypeFilter = (TextureTypeFilter)EditorGUILayout.EnumFlagsField("纹理类型", TypeFilter);
+                ShapeFilter = (TextureShapeFilter)EditorGUILayout.EnumFlagsField("纹理形状", ShapeFilter);
 
                 using (var check = new EditorGUI.ChangeCheckScope())
                 {
-                    _nameFilter = EditorGUILayout.TextField("Name Regex:", _nameFilter);
+                    _nameFilter = EditorGUILayout.TextField("名称正则：", _nameFilter);
                     if (check.changed) CompileNameRegex();
                 }
 
                 if (!_nameRegexValid && !string.IsNullOrEmpty(_nameFilter))
                 {
                     EditorGUILayout.Space();
-                    EditorGUILayout.HelpBox("Invalid regex pattern for name", MessageType.Error);
+                    EditorGUILayout.HelpBox("名称的正则表达式模式无效", MessageType.Error);
                     EditorGUILayout.Space();
                 }
 
                 using (var check = new EditorGUI.ChangeCheckScope())
                 {
-                    _pathFilter = EditorGUILayout.TextField("Path Regex:", _pathFilter);
+                    _pathFilter = EditorGUILayout.TextField("路径正则：", _pathFilter);
                     if (check.changed) CompilePathRegex();
                 }
 
                 if (!_pathRegexValid && !string.IsNullOrEmpty(_pathFilter))
                 {
                     EditorGUILayout.Space();
-                    EditorGUILayout.HelpBox("Invalid regex pattern for path", MessageType.Error);
+                    EditorGUILayout.HelpBox("路径的正则表达式模式无效", MessageType.Error);
                     EditorGUILayout.Space();
                 }
             }
@@ -795,28 +795,28 @@ namespace VRWorldToolkit.Editor
 
         private void DrawMipMapSettings()
         {
-            DefaultSettings.ChangeMipMaps = EditorGUILayout.Toggle("Change Mip Maps", DefaultSettings.ChangeMipMaps);
+            DefaultSettings.ChangeMipMaps = EditorGUILayout.Toggle("更改 Mip Maps", DefaultSettings.ChangeMipMaps);
             using (new EditorGUI.IndentLevelScope())
             using (new EditorGUI.DisabledScope(!DefaultSettings.ChangeMipMaps))
             {
-                DefaultSettings.GenerateMipMaps = EditorGUILayout.Toggle("Generate Mip Maps", DefaultSettings.GenerateMipMaps);
+                DefaultSettings.GenerateMipMaps = EditorGUILayout.Toggle("生成 Mip Maps", DefaultSettings.GenerateMipMaps);
                 using (new EditorGUI.DisabledScope(!DefaultSettings.GenerateMipMaps))
                 {
-                    DefaultSettings.StreamingMipMaps = EditorGUILayout.Toggle("Streaming Mip Maps", DefaultSettings.StreamingMipMaps);
+                    DefaultSettings.StreamingMipMaps = EditorGUILayout.Toggle("流式 Mip Maps", DefaultSettings.StreamingMipMaps);
                 }
             }
         }
 
         private void DrawAnisoSettings()
         {
-            DefaultSettings.ChangeAniso = EditorGUILayout.Toggle("Change Aniso Level", DefaultSettings.ChangeAniso);
+            DefaultSettings.ChangeAniso = EditorGUILayout.Toggle("更改各向异性等级", DefaultSettings.ChangeAniso);
             using (new EditorGUI.IndentLevelScope())
             using (new EditorGUI.DisabledScope(!DefaultSettings.ChangeAniso))
             {
-                DefaultSettings.AnisoLevel = EditorGUILayout.IntSlider("Aniso Level", DefaultSettings.AnisoLevel, 0, 16);
+                DefaultSettings.AnisoLevel = EditorGUILayout.IntSlider("各向异性等级", DefaultSettings.AnisoLevel, 0, 16);
                 using (new EditorGUI.IndentLevelScope())
                 {
-                    DefaultSettings.AnisoCondition = (OverrideCondition)EditorGUILayout.EnumPopup("Override When", DefaultSettings.AnisoCondition);
+                    DefaultSettings.AnisoCondition = (OverrideCondition)EditorGUILayout.EnumPopup("覆盖条件", DefaultSettings.AnisoCondition);
                 }
             }
         }
@@ -856,7 +856,7 @@ namespace VRWorldToolkit.Editor
                     var importer = importers[i];
                     if (importer == null) continue;
 
-                    EditorUtility.DisplayProgressBar("Applying New Settings", importer.assetPath, (float)i / count);
+                    EditorUtility.DisplayProgressBar("正在应用新设置", importer.assetPath, (float)i / count);
 
                     if (!MatchesFilters(importer)) continue;
 
@@ -878,7 +878,7 @@ namespace VRWorldToolkit.Editor
             {
                 EditorUtility.ClearProgressBar();
                 AssetDatabase.StopAssetEditing();
-                EditorUtility.DisplayDialog("Changes Applied", $"Changes applied to {changedCount} Texture Importers.", "Ok");
+                EditorUtility.DisplayDialog("更改已应用", $"更改已应用到 {changedCount} 个纹理导入器。", "确定");
             }
         }
     }
@@ -949,11 +949,11 @@ namespace VRWorldToolkit.Editor
         private const float MinWindowWidth = 1650f;
         private const float MinWindowHeight = 650f;
 
-        [MenuItem("VRWorld Toolkit/Mass Texture Importer", false, 26)]
+        [MenuItem("VRWorld Toolkit/批量纹理导入器", false, 26)]
         public static void ShowWindow()
         {
             var window = GetWindow<MassTextureImporter>();
-            window.titleContent = new GUIContent("Mass Texture Importer");
+            window.titleContent = new GUIContent("批量纹理导入器");
             window.minSize = new Vector2(MinWindowWidth, MinWindowHeight);
             window.Show();
         }
@@ -1053,23 +1053,23 @@ namespace VRWorldToolkit.Editor
             {
                 using (new EditorGUILayout.VerticalScope())
                 {
-                    GUILayout.Label("All Textures:", EditorStyles.boldLabel);
+                    GUILayout.Label("全部纹理：", EditorStyles.boldLabel);
                     using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
                     {
-                        GUILayout.Label($"<b>Texture Count:</b> {_stats.TotalCount}", Styles.LabelRichText);
-                        GUILayout.Label($"<b>Uncrunched Count:</b> {_stats.UncrunchedCount}", Styles.LabelRichText);
-                        GUILayout.Label($"<b>Storage Size:</b> {EditorUtility.FormatBytes(_stats.TotalSize)}", Styles.LabelRichText);
+                        GUILayout.Label($"<b>纹理数量：</b> {_stats.TotalCount}", Styles.LabelRichText);
+                        GUILayout.Label($"<b>非 Crunch 数量：</b> {_stats.UncrunchedCount}", Styles.LabelRichText);
+                        GUILayout.Label($"<b>存储大小：</b> {EditorUtility.FormatBytes(_stats.TotalSize)}", Styles.LabelRichText);
                     }
                 }
 
                 using (new EditorGUILayout.VerticalScope())
                 {
-                    GUILayout.Label("Filtered Textures:", EditorStyles.boldLabel);
+                    GUILayout.Label("过滤后的纹理：", EditorStyles.boldLabel);
                     using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
                     {
-                        GUILayout.Label($"<b>Texture Count:</b> {_stats.FilteredCount}", Styles.LabelRichText);
-                        GUILayout.Label($"<b>Uncrunched Count:</b> {_stats.FilteredUncrunchedCount}", Styles.LabelRichText);
-                        GUILayout.Label($"<b>Storage Size:</b> {EditorUtility.FormatBytes(_stats.FilteredSize)}", Styles.LabelRichText);
+                        GUILayout.Label($"<b>纹理数量：</b> {_stats.FilteredCount}", Styles.LabelRichText);
+                        GUILayout.Label($"<b>非 Crunch 数量：</b> {_stats.FilteredUncrunchedCount}", Styles.LabelRichText);
+                        GUILayout.Label($"<b>存储大小：</b> {EditorUtility.FormatBytes(_stats.FilteredSize)}", Styles.LabelRichText);
                     }
                 }
             }
@@ -1077,18 +1077,18 @@ namespace VRWorldToolkit.Editor
 
         private void DrawButtons()
         {
-            GUILayout.Label("Get textures from:");
+            GUILayout.Label("获取纹理来源：");
 
             using (new EditorGUILayout.HorizontalScope())
             {
-                if (GUILayout.Button("Scene", GUILayout.Width(70), GUILayout.Height(20)))
+                if (GUILayout.Button("场景", GUILayout.Width(70), GUILayout.Height(20)))
                 {
                     _details = GetAllTexturesFromScene();
                     _textureTreeView.SetTextures(_details.TextureList);
                     _stats = new TextureStats(_details.TextureList, _settingsManager.MatchesFilters);
                 }
 
-                if (GUILayout.Button("Assets", GUILayout.Width(70), GUILayout.Height(20)))
+                if (GUILayout.Button("资源", GUILayout.Width(70), GUILayout.Height(20)))
                 {
                     _details = GetAllTexturesFromAssets();
                     _textureTreeView.SetTextures(_details.TextureList);
@@ -1099,7 +1099,7 @@ namespace VRWorldToolkit.Editor
 
                 using (new EditorGUI.DisabledScope(!_settingsChanged))
                 {
-                    if (GUILayout.Button("Default", GUILayout.Width(70), GUILayout.Height(20)))
+                    if (GUILayout.Button("默认", GUILayout.Width(70), GUILayout.Height(20)))
                     {
                         _settingsManager = new ImporterSettingsManager();
                         _settingsChanged = false;
@@ -1109,9 +1109,9 @@ namespace VRWorldToolkit.Editor
 
                 using (new EditorGUI.DisabledScope(_stats.FilteredCount < 1))
                 {
-                    if (GUILayout.Button("Apply", GUILayout.Width(70), GUILayout.Height(20)))
+                    if (GUILayout.Button("应用", GUILayout.Width(70), GUILayout.Height(20)))
                     {
-                        bool confirmed = EditorUtility.DisplayDialog("Process Importers?", $"About to process Texture Importer settings on {_stats.FilteredCount} textures. This can take a while depending on the number of textures with changes and their original size.\n\nDo you want to continue?", "Ok", "Cancel");
+                        bool confirmed = EditorUtility.DisplayDialog("处理导入器？", $"即将对 {_stats.FilteredCount} 个纹理处理纹理导入器设置。根据变更纹理的数量及其原始大小，这可能需要一些时间。\n\n是否继续？", "确定", "取消");
 
                         if (confirmed)
                         {
@@ -1131,7 +1131,7 @@ namespace VRWorldToolkit.Editor
             {
                 using (new EditorGUILayout.HorizontalScope(EditorStyles.toolbar))
                 {
-                    if (GUILayout.Button("Refresh", EditorStyles.toolbarButton))
+                    if (GUILayout.Button("刷新", EditorStyles.toolbarButton))
                     {
                         _textureTreeView.RefreshItems();
                     }
@@ -1166,7 +1166,7 @@ namespace VRWorldToolkit.Editor
                     continue;
                 }
 
-                if (EditorUtility.DisplayCancelableProgressBar("Getting All Textures from the Scene", gameObject.name, (float)i / totalCount))
+                if (EditorUtility.DisplayCancelableProgressBar("正在获取场景中的所有纹理", gameObject.name, (float)i / totalCount))
                 {
                     EditorUtility.ClearProgressBar();
                     break;
@@ -1231,7 +1231,7 @@ namespace VRWorldToolkit.Editor
             {
                 var path = AssetDatabase.GUIDToAssetPath(assetGuids[i]);
 
-                if (EditorUtility.DisplayCancelableProgressBar("Getting All Textures from Assets", Path.GetFileName(path), (float)i / totalCount))
+                if (EditorUtility.DisplayCancelableProgressBar("正在获取资源中的所有纹理", Path.GetFileName(path), (float)i / totalCount))
                 {
                     break;
                 }

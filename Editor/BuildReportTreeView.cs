@@ -137,7 +137,7 @@ namespace VRWorldToolkit.Editor
             {
                 if (string.IsNullOrEmpty(path))
                 {
-                    return "Unknown";
+                    return "未知";
                 }
             
                 if (path.IndexOfAny(Path.GetInvalidPathChars()) >= 0)
@@ -152,7 +152,7 @@ namespace VRWorldToolkit.Editor
             {
                 if (string.IsNullOrEmpty(path) || path.IndexOfAny(Path.GetInvalidPathChars()) >= 0)
                 {
-                    return "Unknown";
+                    return "未知";
                 }
 
                 return Path.GetExtension(path);
@@ -213,7 +213,7 @@ namespace VRWorldToolkit.Editor
                     switch (item.Name)
                     {
                         case "Mono":
-                            name = "Scripts";
+                            name = "脚本";
                             break;
                         case "Model":
                         case "Texture":
@@ -222,7 +222,7 @@ namespace VRWorldToolkit.Editor
                         case "TrueTypeFont":
                         case "Plugin":
                         case "Prefab":
-                            name = item.Name + "s";
+                            name = item.Name;
                             break;
                         default:
                             name = item.Name;
@@ -298,7 +298,7 @@ namespace VRWorldToolkit.Editor
             }
             else
             {
-                EditorGUILayout.HelpBox("No messages to show.", MessageType.Info);
+                EditorGUILayout.HelpBox("没有要显示的消息。", MessageType.Info);
             }
         }
 
@@ -309,7 +309,7 @@ namespace VRWorldToolkit.Editor
                 new MultiColumnHeaderState.Column
                 {
                     headerContent = EditorGUIUtility.IconContent("FilterByType"),
-                    contextMenuText = "Preview",
+                    contextMenuText = "预览",
                     headerTextAlignment = TextAlignment.Center,
                     canSort = false,
                     width = 20,
@@ -320,8 +320,8 @@ namespace VRWorldToolkit.Editor
                 },
                 new MultiColumnHeaderState.Column
                 {
-                    headerContent = new GUIContent("USize", "Uncompressed size of the asset. Unity compresses assets during the build process, so this value will not match the size of the asset within the build."),
-                    contextMenuText = "USize",
+                    headerContent = new GUIContent("未压缩大小", "资源的未压缩大小。Unity 在构建过程中会压缩资源，因此此值不会与构建中资源的大小匹配。"),
+                    contextMenuText = "未压缩大小",
                     headerTextAlignment = TextAlignment.Left,
                     sortedAscending = true,
                     sortingArrowAlignment = TextAlignment.Right,
@@ -333,7 +333,7 @@ namespace VRWorldToolkit.Editor
                 },
                 new MultiColumnHeaderState.Column
                 {
-                    headerContent = new GUIContent("Name"),
+                    headerContent = new GUIContent("名称"),
                     headerTextAlignment = TextAlignment.Left,
                     sortedAscending = true,
                     sortingArrowAlignment = TextAlignment.Center,
@@ -344,8 +344,8 @@ namespace VRWorldToolkit.Editor
                 },
                 new MultiColumnHeaderState.Column
                 {
-                    headerContent = new GUIContent("Type", "File type"),
-                    contextMenuText = "Type",
+                    headerContent = new GUIContent("类型", "文件类型"),
+                    contextMenuText = "类型",
                     headerTextAlignment = TextAlignment.Left,
                     sortedAscending = true,
                     sortingArrowAlignment = TextAlignment.Right,
@@ -357,8 +357,8 @@ namespace VRWorldToolkit.Editor
                 },
                 new MultiColumnHeaderState.Column
                 {
-                    headerContent = new GUIContent("%", "Percentage out of all assets"),
-                    contextMenuText = "Percentage",
+                    headerContent = new GUIContent("%", "占所有资源的百分比"),
+                    contextMenuText = "百分比",
                     headerTextAlignment = TextAlignment.Left,
                     sortedAscending = true,
                     sortingArrowAlignment = TextAlignment.Right,
@@ -463,10 +463,10 @@ namespace VRWorldToolkit.Editor
             var menu = new GenericMenu();
 
             // Create the menu items
-            menu.AddItem(new GUIContent("Copy Name"), false, ReplaceClipboard, Path.GetFileName(clickedItem.path));
-            menu.AddItem(new GUIContent("Copy Path"), false, ReplaceClipboard, clickedItem.path);
-            menu.AddItem(new GUIContent("Reveal in Explorer"), false, () => EditorUtility.RevealInFinder(clickedItem.path));
-            menu.AddItem(new GUIContent("Select in Assets"), false, SelectAssetsInProjectWindow);
+            menu.AddItem(new GUIContent("复制名称"), false, ReplaceClipboard, Path.GetFileName(clickedItem.path));
+            menu.AddItem(new GUIContent("复制路径"), false, ReplaceClipboard, clickedItem.path);
+            menu.AddItem(new GUIContent("在资源管理器中显示"), false, () => EditorUtility.RevealInFinder(clickedItem.path));
+            menu.AddItem(new GUIContent("在资源中选中"), false, SelectAssetsInProjectWindow);
 
             // Show the menu
             menu.ShowAsContext();

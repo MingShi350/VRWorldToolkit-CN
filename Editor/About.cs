@@ -6,10 +6,10 @@ namespace VRWorldToolkit.Editor
 {
     public class About : EditorWindow
     {
-        [MenuItem("VRWorld Toolkit/About VRWorld Toolkit", false, 40)]
+        [MenuItem("VRWorld Toolkit/关于 VRWorld Toolkit", false, 40)]
         public static void ShowWindow()
         {
-            var window = (About) GetWindow(typeof(About), true, "VRWorld Toolkit");
+            var window = (About) GetWindow(typeof(About), true, "关于 VRWorld Toolkit");
             window.minSize = new Vector2(600, 380);
             window.maxSize = new Vector2(600, 380);
             window.Show();
@@ -46,7 +46,7 @@ namespace VRWorldToolkit.Editor
                 clickCounter++;
                 if (clickCounter >= 10)
                 {
-                    Debug.Log("Toggled benchmark mode for VRWorld Toolkit");
+                    Debug.Log("已切换 VRWorld Toolkit 基准测试模式");
 #if VRWT_BENCHMARK
                     ScriptingDefineManager.RemoveScriptingDefine("VRWT_BENCHMARK");
 #else
@@ -56,11 +56,11 @@ namespace VRWorldToolkit.Editor
             };
 
             // Information Texts
-            GUILayout.Label("Welcome to VRWorld Toolkit!", EditorStyles.boldLabel);
+            GUILayout.Label("欢迎使用 VRWorld Toolkit！", EditorStyles.boldLabel);
 
-            GUILayout.Label("VRWorld Toolkit is a project aimed at helping people get into world building faster without spending time combing different documentations for all the smaller mistakes you can make while making your first world. Even for experienced world builders, it helps make tedious steps like setting up post-processing faster and allows you not to forget the dozen little things you need to remember while building worlds.", Styles.RichTextWrap);
+            GUILayout.Label("VRWorld Toolkit 旨在帮助大家更快上手世界构建，不必花费时间翻阅各种文档来排查初次建世界时容易犯的各种小错误。即使是有经验的世界构建者，它也能帮你加快后期处理设置等繁琐步骤，让你不会忘记构建世界时需要留意的许多细节。", Styles.RichTextWrap);
 
-            GUILayout.Label("If you have suggestions, found problems with the included tools, or want to check my social channels, you can click on the buttons below. Feedback is always welcome, so I know what to improve!", Styles.RichTextWrap);
+            GUILayout.Label("如果你有任何建议、发现工具中的问题、或想查看我的社交频道，可以点击下方的按钮。欢迎随时反馈，让我知道哪里可以改进！", Styles.RichTextWrap);
 
             GUILayout.FlexibleSpace();
 
